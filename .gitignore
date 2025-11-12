@@ -1,0 +1,19 @@
+# Ignorar cosas globales
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignorar builds
+Builds/
+
+# Ignorar temporales globales
+*.log
+
+# Ignorar contenido de Unity (dentro de la subcarpeta)
+Primer_Nivel/[Ll]ibrary/
+Primer_Nivel/[Tt]emp/
+Primer_Nivel/[Oo]bj/
+Primer_Nivel/[Bb]uild/
+Primer_Nivel/[Bb]uilds/
+Primer_Nivel/[Uu]ser[Ss]ettings/
+Primer_Nivel/[Ll]ogs/

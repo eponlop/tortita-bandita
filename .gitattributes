@@ -1,2 +1,19 @@
-# Auto detect text files and perform LF normalization
+# Asegurar consistencia de fin de línea (LF)
 * text=auto
+
+# Forzar archivos YAML y C# a usar LF
+*.cs text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.meta text eol=lf
+
+# Binarios que no deben tener cambios de texto
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.psd binary
+*.fbx binary
+*.anim binary
+*.controller binary
+*.prefab binary
+*.unity binary
