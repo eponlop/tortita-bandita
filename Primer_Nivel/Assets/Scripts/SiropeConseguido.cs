@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class SiropeConseguido : MonoBehaviour
 {
-   
+    private GameObject player;
+
     void Start()
     {
-        
+        player = GameObject.Find("Tortita_Bandita");
     }
 
     // Update is called once per frame
@@ -14,13 +15,13 @@ public class SiropeConseguido : MonoBehaviour
         
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        Debug.Log($" Robo conseguido, primero de muchos.");
-    }
-
+    // Si usas colliders con triggers (por ejemplo, una zona de detección)
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log($" Robo conseguido, primero de muchos.");
+        if (other.gameObject == player)
+        {
+            Debug.Log("Robo conseguido, el primero de muchos");
+        }
     }
+
 }

@@ -181,6 +181,6 @@ public class PlayerController : MonoBehaviour
             controller.Move(Physics.gravity * Time.deltaTime);
 
         // Debug de resistencia
-        Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");
+        //Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");
     }
 }

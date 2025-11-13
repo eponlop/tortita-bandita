@@ -19,6 +19,7 @@ public class WanderingAI : MonoBehaviour
 
     private bool chasing = false;
 
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -51,6 +52,26 @@ public class WanderingAI : MonoBehaviour
         else
         {
             Patrol();
+        }
+
+
+  
+    }
+    void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject == player)
+        {
+            Debug.Log("¡El enemigo atrapó al jugador!");
+            // Aquí puedes añadir la lógica de daño, reiniciar nivel, etc.
+        }
+    }
+
+    // Si usas colliders con triggers (por ejemplo, una zona de detección)
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject == player)
+        {
+            Debug.Log("¡El jugador entró en el rango del enemigo!");
         }
     }
 
