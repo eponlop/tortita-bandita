@@ -547,14 +547,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 15
-  maxStamina: 100
   currentStamina: 0
+  recoverRate: 0
+  maxStamina: 100
+  minStaminaToRun: 25
   staminaDrain: 20
-  staminaRecovery: 1
   recoveryDelay: 2
   recoveryTimer: 0
-  staminaRecoveryStill: 50
-  minStaminaToRun: 25
+  staminaRecovery: 7
+  staminaRecoveryStill: 15
   isTired: 0
   targetScale: {x: 5, y: 20, z: 20}
   camera: {fileID: 330585546}

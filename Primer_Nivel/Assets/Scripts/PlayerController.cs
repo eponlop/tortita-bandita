@@ -128,7 +128,7 @@ public class PlayerController : MonoBehaviour
             }
             else // ya pasó el delay, puede recuperar stamina
             {
-                recoverRate = isMoving ? staminaRecoveryStill : staminaRecovery;
+                recoverRate = isMoving ? staminaRecovery : staminaRecoveryStill;
                 currentStamina += recoverRate * Time.deltaTime;
 
             }
