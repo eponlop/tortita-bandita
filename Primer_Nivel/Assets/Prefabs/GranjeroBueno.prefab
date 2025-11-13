@@ -100,14 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cba3cb815580520419eadc8c9d80d730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 6
+  rotationSpeed: 2
+  reachDistance: 0.5
+  chaseSpeed: 10
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  speed: 6
-  reachDistance: 0.5
-  rotationSpeed: 2
 --- !u!143 &5948829328863006903
 CharacterController:
   m_ObjectHideFlags: 0
