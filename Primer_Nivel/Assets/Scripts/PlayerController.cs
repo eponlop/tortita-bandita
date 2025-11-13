@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float currentSpeed;
     private bool isRunning;
+    private bool isDeformed;
 
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
@@ -22,6 +23,9 @@ public class PlayerController : MonoBehaviour
     public float staminaRecovery = 7f;          // Por segundo al no correr
     public float staminaRecoveryStill = 15f;    // Por segundo al estar quieto
     public bool isTired = false;
+
+    private Vector3 originalScale;             // Escala original del jugador
+    public Vector3 targetScale = new Vector3(2f, 2f, 2f);
 
 
     private CharacterController controller;
@@ -55,6 +59,21 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = false;
             //Debug.Log("BackToWalk");
+        }
+    }
+
+    public void OnDeformarse(InputAction.CallbackContext context)
+    {
+        // Aquí iría la lógica para deformarse
+       if (context.performed)
+       {
+            isDeformed = true;
+            Debug.Log("Deformado");
+        }
+        else if (context.canceled)
+        {
+            isDeformed = false;
+            Debug.Log("No deformado");
         }
     }
 
@@ -122,9 +141,21 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
+        if (isDeformed)
+        {
+            // Lógica de deformación 
+            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
+        }
+        else {
+            if (originalScale == Vector3.zero)
+                originalScale = transform.localScale; // Guardar la escala al inicio
+            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
+        }
+        
+        
+        
         // Aplicar gravedad
-        controller.Move(Physics.gravity * Time.deltaTime);
+            controller.Move(Physics.gravity * Time.deltaTime);
 
         // Debug de resistencia
         Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");

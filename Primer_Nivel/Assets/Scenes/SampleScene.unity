@@ -547,6 +547,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 5
   runSpeed: 15
+  maxStamina: 100
+  currentStamina: 0
+  staminaDrain: 20
+  staminaRecovery: 1
+  recoveryDelay: 2
+  recoveryTimer: 0
+  staminaRecoveryStill: 50
+  minStaminaToRun: 25
+  isTired: 0
+  targetScale: {x: 5, y: 20, z: 20}
   camera: {fileID: 330585546}
   rotSpeed: 15
 --- !u!114 &268675241
@@ -606,6 +616,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bf4b6cd3-10ab-4e4d-9f38-5526eaefdbf6
     m_ActionName: 'OnFoot/Run[/Keyboard/leftShift,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 268675240}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnDeformarse
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a7ca5cc0-c784-410f-aef6-e2905a7137a7
+    m_ActionName: 'OnFoot/Deformarse[/Keyboard/e]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: OnFoot
@@ -641,6 +667,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 108b1dfb3718d604e9452dfa37a30cdc, type: 3}
   m_PrefabInstance: {fileID: 508932156}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &268675248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268675239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f29ae3143be5b24d9f38e3d71e42c24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deformAction: {fileID: 8332715181754277154, guid: 8cecd2f94396a4c4eb623a16d48fb437, type: 3}
+  targetScale: {x: 8, y: 0, z: 8}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,6 +1411,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100000, guid: 108b1dfb3718d604e9452dfa37a30cdc, type: 3}
       insertIndex: -1
       addedObject: {fileID: 268675240}
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 108b1dfb3718d604e9452dfa37a30cdc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 268675248}
   m_SourcePrefab: {fileID: 100100000, guid: 108b1dfb3718d604e9452dfa37a30cdc, type: 3}
 --- !u!1 &563687138
 GameObject:
