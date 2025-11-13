@@ -4,19 +4,23 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float runSpeed = 10f;
     private float currentSpeed;
     private bool isRunning;
 
-    public float maxStamina = 100f;             // Resistencia máxima
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
+
+
     public float currentStamina;                // Resistencia actual
-    public float staminaDrain = 20f;            // Por segundo al correr
-    public float staminaRecovery = 1f;          // Por segundo al no correr
+    public float recoverRate;                   // Tasa de recuperación actual
+
+    public float maxStamina = 100f;             // Resistencia máxima
+    public float minStaminaToRun = 25f;         // Resistencia mínima para poder correr
+    public float staminaDrain = 20f;            // Por segundo al correr    
     public float recoveryDelay = 2f;            // Segundos antes de empezar a recuperar
     public float recoveryTimer = 0f;            // Temporizador de recuperación
-    public float staminaRecoveryStill = 50f;    // Por segundo al estar quieto
-    public float minStaminaToRun = 25f;         // Resistencia mínima para poder correr
+    public float staminaRecovery = 7f;          // Por segundo al no correr
+    public float staminaRecoveryStill = 15f;    // Por segundo al estar quieto
     public bool isTired = false;
 
 
@@ -44,13 +48,13 @@ public class PlayerController : MonoBehaviour
         if (context.performed && currentStamina >= minStaminaToRun && !isTired)
         {
             isRunning = true;
-            Debug.Log("Running");
+            //Debug.Log("Running");
         }
 
         else if (context.canceled)
         {
             isRunning = false;
-            Debug.Log("BackToWalk");
+            //Debug.Log("BackToWalk");
         }
     }
 
@@ -87,7 +91,7 @@ public class PlayerController : MonoBehaviour
                 currentStamina = 0f;
                 isTired = true;
                 isRunning = false; // forzar que deje de correr
-                Debug.Log("Me he cansado");
+                //Debug.Log("Me he cansado");
             }
         }
         else
@@ -105,14 +109,15 @@ public class PlayerController : MonoBehaviour
             }
             else // ya pasó el delay, puede recuperar stamina
             {
-                float recoverRate = isMoving ? staminaRecovery : staminaRecoveryStill;
+                recoverRate = isMoving ? staminaRecoveryStill : staminaRecovery;
                 currentStamina += recoverRate * Time.deltaTime;
+
             }
             if (currentStamina >= maxStamina)
             {
                 currentStamina = maxStamina;
                 isTired = false;
-                Debug.Log("Tengo la resistencia al máximo");
+                //Debug.Log("Tengo la resistencia al máximo");
               
             }
         }
@@ -122,6 +127,6 @@ public class PlayerController : MonoBehaviour
         controller.Move(Physics.gravity * Time.deltaTime);
 
         // Debug de resistencia
-        Debug.Log("Stamina: " + currentStamina);
+        Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");
     }
 }
