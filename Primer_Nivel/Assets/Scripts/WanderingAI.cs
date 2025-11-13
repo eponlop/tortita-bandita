@@ -7,51 +7,81 @@ public class WanderingAI : MonoBehaviour
     public float speed = 3.0f;
     public float rotationSpeed = 5.0f;
     public float reachDistance = 0.5f;
+    public float chaseSpeed = 6.0f;
 
     [Header("Waypoints")]
     public Transform[] waypoints;
 
+    private GameObject player;
     private int currentWaypoint = 0;
-    private int dirSign = 1; // +1 = adelante, -1 = atrás (antes 'direction' como int)
+    private int dirSign = 1; // +1 = adelante, -1 = atrás
     private CharacterController controller;
+
+    private bool chasing = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        player = GameObject.Find("Tortita_Bandita"); // busca el jugador por nombre
     }
 
     void Update()
+    {
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        // Detecta al jugador si está al frente
+        if (Physics.SphereCast(ray, 1.5f, out hit, 30f)) // límite de 10 metros
+        {
+            if (hit.collider.gameObject == player)
+            {
+                chasing = true;
+            }
+        }
+        else
+        {
+            // Si no ve al jugador, vuelve a patrullar
+            chasing = false;
+        }
+
+        if (chasing)
+        {
+            ChasePlayer();
+        }
+        else
+        {
+            Patrol();
+        }
+    }
+
+    // ---------------- PATRULLA ENTRE WAYPOINTS ----------------
+    void Patrol()
     {
         if (waypoints == null || waypoints.Length == 0)
             return;
 
         Vector3 targetPos = waypoints[currentWaypoint].position;
-        Vector3 dirToTarget = targetPos - transform.position; // antes llamada 'direction' (conflictiva)
+        Vector3 dirToTarget = targetPos - transform.position;
         dirToTarget.y = 0f;
 
         float distance = dirToTarget.magnitude;
 
-        // Si estamos cerca del waypoint, avanzamos al siguiente o invertimos la dirección
         if (distance < reachDistance)
         {
             currentWaypoint += dirSign;
 
-            // Si llegamos al final o al inicio, invertimos el sentido
             if (currentWaypoint >= waypoints.Length)
             {
-                currentWaypoint = waypoints.Length - 2; // retrocede al penúltimo
+                currentWaypoint = waypoints.Length - 2;
                 dirSign = -1;
             }
             else if (currentWaypoint < 0)
             {
-                currentWaypoint = 1; // avanza al segundo
+                currentWaypoint = 1;
                 dirSign = 1;
             }
-
-            return;
         }
 
-        // Rotar suavemente hacia el waypoint
         if (dirToTarget.sqrMagnitude > 0.01f)
         {
             Quaternion targetRotation = Quaternion.LookRotation(dirToTarget);
@@ -62,24 +92,28 @@ public class WanderingAI : MonoBehaviour
             );
         }
 
-        // Mover hacia adelante (respetando colisiones)
         Vector3 move = transform.forward * speed * Time.deltaTime;
         controller.Move(move);
     }
 
-    void OnDrawGizmosSelected()
+    // ---------------- PERSECUCIÓN ----------------
+    void ChasePlayer()
     {
-        if (waypoints == null || waypoints.Length == 0) return;
+        if (player == null) return;
 
-        Gizmos.color = Color.cyan;
-        for (int i = 0; i < waypoints.Length; i++)
+        Vector3 direction = player.transform.position - transform.position;
+        direction.y = 0;
+
+        if (direction.magnitude > 1.0f) // mientras esté lejos
         {
-            if (waypoints[i] != null)
-            {
-                Gizmos.DrawSphere(waypoints[i].position, 0.2f);
-                if (i < waypoints.Length - 1 && waypoints[i + 1] != null)
-                    Gizmos.DrawLine(waypoints[i].position, waypoints[i + 1].position);
-            }
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(direction),
+                Time.deltaTime * 5.0f
+            );
+
+            Vector3 move = transform.forward * chaseSpeed * Time.deltaTime;
+            controller.Move(move);
         }
     }
 }
