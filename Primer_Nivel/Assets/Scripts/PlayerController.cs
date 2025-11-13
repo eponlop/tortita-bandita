@@ -12,10 +12,10 @@ public class PlayerController : MonoBehaviour
     public float maxStamina = 100f;             // Resistencia máxima
     public float currentStamina;                // Resistencia actual
     public float staminaDrain = 20f;            // Por segundo al correr
-    public float staminaRecovery = 10f;         // Por segundo al no correr
+    public float staminaRecovery = 1f;          // Por segundo al no correr
     public float recoveryDelay = 2f;            // Segundos antes de empezar a recuperar
     public float recoveryTimer = 0f;            // Temporizador de recuperación
-    public float staminaRecoveryStill = 5f;     // Por segundo al estar quieto
+    public float staminaRecoveryStill = 50f;    // Por segundo al estar quieto
     public float minStaminaToRun = 25f;         // Resistencia mínima para poder correr
     public bool isTired = false;
 
@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
     // Correr (Input de botón)
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (context.performed && currentStamina >= minStaminaToRun)
+        if (context.performed && currentStamina >= minStaminaToRun && !isTired)
         {
             isRunning = true;
             Debug.Log("Running");
@@ -62,7 +62,9 @@ public class PlayerController : MonoBehaviour
         // Movimiento relativo a la cámara
         Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
 
-        if (!Mathf.Approximately(horizVel.magnitude, 0.0f))
+        bool isMoving = moveInput.sqrMagnitude > 0.1f; // Umbral para considerar movimiento
+
+        if (isMoving)
         {
             Quaternion rot = Quaternion.Euler(0, camera.eulerAngles.y, 0);
             horizVel = rot * horizVel;
@@ -73,16 +75,16 @@ public class PlayerController : MonoBehaviour
         controller.Move(horizVel * Time.deltaTime);
 
 
-        // Gestión de la resistencia                                              // FALTA ARREGLAR EL BUG DE QUE SI LLEGA 0 LA RESISTENCIA PUEDE SPAMEAR EL SHIFT UNA VEZ PASA EL MINIMO
-        if (isRunning && horizVel.magnitude > 0.1f && !isTired && currentStamina > 0)
+        // Gestión de la resistencia
+        if (isRunning && isMoving && !isTired && currentStamina > 0f)
         {
             // Correr y gastar stamina
             currentStamina -= staminaDrain * Time.deltaTime;
             recoveryTimer = 0f; // reiniciar delay de recuperación
 
-            if (currentStamina <= 0)
+            if (currentStamina <= 0f)
             {
-                currentStamina = 0;
+                currentStamina = 0f;
                 isTired = true;
                 isRunning = false; // forzar que deje de correr
                 Debug.Log("Me he cansado");
@@ -103,23 +105,15 @@ public class PlayerController : MonoBehaviour
             }
             else // ya pasó el delay, puede recuperar stamina
             {
-                if (horizVel.magnitude < 0.1f) // quieto
-                {
-                    currentStamina += staminaRecoveryStill * Time.deltaTime;
-                    Debug.Log("Recupero rápido");
-                }
-                else // caminando
-                {
-                    currentStamina += staminaRecovery * Time.deltaTime;
-                    Debug.Log("Recupero lento");
-                }
-
-                if (currentStamina >= maxStamina)
-                {
-                    currentStamina = maxStamina;
-                    isTired = false;
-                    Debug.Log("Tengo la resistencia al máximo");
-                }
+                float recoverRate = isMoving ? staminaRecovery : staminaRecoveryStill;
+                currentStamina += recoverRate * Time.deltaTime;
+            }
+            if (currentStamina >= maxStamina)
+            {
+                currentStamina = maxStamina;
+                isTired = false;
+                Debug.Log("Tengo la resistencia al máximo");
+              
             }
         }
 
