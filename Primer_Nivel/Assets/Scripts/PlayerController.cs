@@ -27,6 +27,14 @@ public class PlayerController : MonoBehaviour
     private Vector3 originalScale;             // Escala original del jugador
     public Vector3 targetScale = new Vector3(2f, 2f, 2f);
 
+    private float originalHeight;
+    private Vector3 originalCenter;
+    public float targetHeight = 1f;
+    public Vector3 targetCenter = new Vector3(0f, 0.5f, 0f);
+
+    private float originalRadius;
+    public float targetRadius = 0.5f;
+
 
     private CharacterController controller;
     [SerializeField] private Transform camera;
@@ -38,6 +46,11 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         currentSpeed = walkSpeed;
         currentStamina = maxStamina;
+
+        originalScale = transform.localScale;
+        originalHeight = controller.height;
+        originalCenter = controller.center;
+        originalRadius = controller.radius;
     }
 
     // Movimiento (Input del joystick o teclado)
@@ -145,11 +158,21 @@ public class PlayerController : MonoBehaviour
         {
             // Lógica de deformación 
             transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
+
+            // Escala hitbox proporcionalmente en Y
+            controller.height = targetHeight;
+
+            // Ajustar center para que siga al personaje
+            controller.center = targetCenter;
+
+            // Ajustar radius proporcionalmente
+            controller.radius = targetRadius;
         }
         else {
-            if (originalScale == Vector3.zero)
-                originalScale = transform.localScale; // Guardar la escala al inicio
             transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
+            controller.height = originalHeight;
+            controller.center = originalCenter;
+            controller.radius = originalRadius;
         }
         
         
