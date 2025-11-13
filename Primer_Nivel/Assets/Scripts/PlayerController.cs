@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
         originalHeight = controller.height;
         originalCenter = controller.center;
         originalRadius = controller.radius;
+
+        Cursor.visible = false;
     }
 
     // Movimiento (Input del joystick o teclado)
