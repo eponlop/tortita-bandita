@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.473082
+      value: -12.359839
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.591598
+      value: 0.005077487
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -28.817009
+      value: -5.6464634
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
       propertyPath: m_LocalRotation.w
@@ -64,6 +64,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
     - target: {fileID: 919132149155446097, guid: 605e437c1d871944fa716a75a6d62d20, type: 3}
       propertyPath: m_Name
       value: Bottle_02

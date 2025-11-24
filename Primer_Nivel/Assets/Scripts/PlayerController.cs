@@ -82,12 +82,12 @@ public class PlayerController : MonoBehaviour
        if (context.performed)
        {
             isDeformed = true;
-            Debug.Log("Deformado");
+            //Debug.Log("Deformado");
         }
         else if (context.canceled)
         {
             isDeformed = false;
-            Debug.Log("No deformado");
+            //Debug.Log("No deformado");
         }
     }
 
