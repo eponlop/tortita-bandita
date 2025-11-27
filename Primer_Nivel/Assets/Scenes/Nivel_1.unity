@@ -77714,6 +77714,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 6995827570774163736, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -77764,23 +77768,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -564.75
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -201.625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7101397842638910050, guid: 7b664376eb39baf4bbe593ac70944333, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -77811,6 +77815,58 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionId
+      value: 073623df-cf90-4369-8d6a-46494b17436e
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_ActionName
+      value: 'OnFoot/Pause[/Keyboard/escape]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1043964426}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2233073845156883982, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4315403542940712742, guid: b51c9390c8169d2448545cc3c0f18361, type: 3}
       propertyPath: m_LocalPosition.x
       value: 17.7

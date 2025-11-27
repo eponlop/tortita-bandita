@@ -1,33 +1,31 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class PauseManager : MonoBehaviour
 {
     [Header("UI")]
-    public GameObject pauseMenuUI; // Arrastra aquí tu panel de pausa
+    public GameObject pauseMenuUI;
 
     private bool isPaused = false;
     private Coroutine cursorFixCoroutine;
-    
 
     void Start()
     {
-        // Estado inicial: juego funcionando, cursor oculto y bloqueado
         HideAndLockCursor();
 
-        // Asegúrate de que el menú de pausa empieza desactivado
         if (pauseMenuUI != null)
             pauseMenuUI.SetActive(false);
     }
 
-    void Update()
+    // ESTE ES EL NUEVO MÉTODO QUE USA EL NUEVO INPUT SYSTEM
+    public void OnPause(InputAction.CallbackContext context)
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (isPaused) Resume();
-            else Pause();
-        }
+        if (!context.performed) return;
+        //Debug.Log("PAUSE PRESSED");
+        if (isPaused) Resume();
+        else Pause();
     }
 
     public void Pause()
@@ -36,11 +34,9 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 0f;
         if (pauseMenuUI != null) pauseMenuUI.SetActive(true);
 
-        // Mostrar cursor para usar el menú
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        // Cancelar corrutinas pendientes
         if (cursorFixCoroutine != null) StopCoroutine(cursorFixCoroutine);
     }
 
@@ -50,14 +46,12 @@ public class PauseManager : MonoBehaviour
         Time.timeScale = 1f;
         if (pauseMenuUI != null) pauseMenuUI.SetActive(false);
 
-        // Aplicar bloqueo del cursor en el siguiente frame
         if (cursorFixCoroutine != null) StopCoroutine(cursorFixCoroutine);
         cursorFixCoroutine = StartCoroutine(FixCursorNextFrame());
     }
 
     IEnumerator FixCursorNextFrame()
     {
-        // Esperar un frame porque el UI o el EventSystem pueden modificar el cursor
         yield return null;
         HideAndLockCursor();
         cursorFixCoroutine = null;
