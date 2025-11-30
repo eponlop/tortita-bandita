@@ -155,26 +155,26 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (isDeformed)
-        {
-            // Lógica de deformación 
-            transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
+        //if (isDeformed)
+        //{
+        //    // Lógica de deformación 
+        //    transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
 
-            // Escala hitbox proporcionalmente en Y
-            controller.height = targetHeight;
+        //    // Escala hitbox proporcionalmente en Y
+        //    controller.height = targetHeight;
 
-            // Ajustar center para que siga al personaje
-            controller.center = targetCenter;
+        //    // Ajustar center para que siga al personaje
+        //    controller.center = targetCenter;
 
-            // Ajustar radius proporcionalmente
-            controller.radius = targetRadius;
-        }
-        else {
-            transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
-            controller.height = originalHeight;
-            controller.center = originalCenter;
-            controller.radius = originalRadius;
-        }
+        //    // Ajustar radius proporcionalmente
+        //    controller.radius = targetRadius;
+        //}
+        //else {
+        //    transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
+        //    controller.height = originalHeight;
+        //    controller.center = originalCenter;
+        //    controller.radius = originalRadius;
+        //}
         
         
         

@@ -325,7 +325,6 @@ GameObject:
   - component: {fileID: 660832819056766786}
   - component: {fileID: 2233073845156883982}
   - component: {fileID: 7298720818895558270}
-  - component: {fileID: 7514949574886432523}
   m_Layer: 0
   m_Name: Tortita_Bandita
   m_TagString: Untagged
@@ -552,17 +551,3 @@ MonoBehaviour:
   targetRadius: 0.01
   camera: {fileID: 0}
   rotSpeed: 15
---- !u!114 &7514949574886432523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6679721902228093325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f29ae3143be5b24d9f38e3d71e42c24, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deformAction: {fileID: 8332715181754277154, guid: 8cecd2f94396a4c4eb623a16d48fb437, type: 3}
-  targetScale: {x: 8, y: 0, z: 8}

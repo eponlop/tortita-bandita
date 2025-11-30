@@ -24,7 +24,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Deformarse",
+                    "name": "Rotarse",
                     "type": "Button",
                     "id": "a7ca5cc0-c784-410f-aef6-e2905a7137a7",
                     "expectedControlType": "",
@@ -138,7 +138,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Deformarse",
+                    "action": "Rotarse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
