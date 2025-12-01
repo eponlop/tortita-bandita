@@ -23,7 +23,7 @@ public class WanderingAI : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        player = GameObject.Find("Tortita_Bandita"); // busca el jugador por nombre
+        player = GameObject.FindWithTag("Player"); // busca el jugador por tag "Player"
     }
 
     void Update()

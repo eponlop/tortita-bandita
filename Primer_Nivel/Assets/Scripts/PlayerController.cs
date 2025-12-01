@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float currentSpeed;
     private bool isRunning;
-    private bool isDeformed;
+    private bool isTurned;
 
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
         // Aquí iría la lógica para deformarse
        if (context.performed)
        {
-            isDeformed = true;
+            isTurned = true;
             //Debug.Log("Deformado");
         }
         else if (context.canceled)
         {
-            isDeformed = false;
+            isTurned = false;
             //Debug.Log("No deformado");
         }
     }
@@ -155,31 +155,22 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //if (isDeformed)
-        //{
-        //    // Lógica de deformación 
-        //    transform.localScale = Vector3.Lerp(transform.localScale, targetScale, Time.deltaTime * 5f);
+        if (isTurned)
+        {
+            //bajar el radio a 0.025
+            controller.radius = 0.025f;
 
-        //    // Escala hitbox proporcionalmente en Y
-        //    controller.height = targetHeight;
+        }
+        else
+        {
+            //volver al radio original
+            controller.radius = originalRadius;
+        }
 
-        //    // Ajustar center para que siga al personaje
-        //    controller.center = targetCenter;
 
-        //    // Ajustar radius proporcionalmente
-        //    controller.radius = targetRadius;
-        //}
-        //else {
-        //    transform.localScale = Vector3.Lerp(transform.localScale, originalScale, Time.deltaTime * 5f);
-        //    controller.height = originalHeight;
-        //    controller.center = originalCenter;
-        //    controller.radius = originalRadius;
-        //}
-        
-        
-        
+
         // Aplicar gravedad
-            controller.Move(Physics.gravity * Time.deltaTime);
+        controller.Move(Physics.gravity * Time.deltaTime);
 
         // Debug de resistencia
         //Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");

@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 2759291275882352964}
   m_Layer: 0
   m_Name: GalletitaBandita
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -368,7 +368,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 0.2725773
-  m_Radius: 0.05
+  m_Radius: 0.085
   m_SlopeLimit: 2
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -496,7 +496,7 @@ MonoBehaviour:
   targetHeight: 0.3
   targetCenter: {x: 0, y: 0.1, z: 0}
   targetRadius: 0.01
-  camera: {fileID: 0}
+  camera: {fileID: 7715802393024126988}
   rotSpeed: 15
 --- !u!114 &2759291275882352964
 MonoBehaviour:
