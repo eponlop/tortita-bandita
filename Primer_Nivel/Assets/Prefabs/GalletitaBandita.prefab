@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 371994890094761488}
   - component: {fileID: 8373156066742106327}
   - component: {fileID: 2759291275882352964}
+  - component: {fileID: 7129319123426857177}
   m_Layer: 0
   m_Name: GalletitaBandita
   m_TagString: Untagged
@@ -514,6 +515,28 @@ MonoBehaviour:
   childToRotate: {fileID: 7454376204869396075}
   rotationAngle: 90
   rotationSpeed: 5
+--- !u!95 &7129319123426857177
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729765373503169848}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a660ef2ffcbefa47806858b23c8bd58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9165012353159706906
 GameObject:
   m_ObjectHideFlags: 0
@@ -648,10 +671,40 @@ PrefabInstance:
     - {fileID: -8700617353114198275, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
     - {fileID: 65702495048144492, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7351855112560075083}
   m_SourcePrefab: {fileID: 100100000, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
 --- !u!4 &6923660337689320007 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
   m_PrefabInstance: {fileID: 7466811062140255660}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7736648458347380989 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bcacd0b6b1e8bf447b6c75c888460e90, type: 3}
+  m_PrefabInstance: {fileID: 7466811062140255660}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7351855112560075083
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7736648458347380989}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6a660ef2ffcbefa47806858b23c8bd58, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
