@@ -113,6 +113,7 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
 
             animator.SetFloat("Speed", horizVel.sqrMagnitude);
+            Debug.Log($ "Moviéndome a {horizVel}");
 
         }
 
