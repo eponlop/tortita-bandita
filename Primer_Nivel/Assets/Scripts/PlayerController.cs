@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
+
+    private Animator animator;
     private float currentSpeed;
     private bool isRunning;
     private bool isTurned;
@@ -46,6 +48,8 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         currentSpeed = walkSpeed;
         currentStamina = maxStamina;
+
+        animator = GetComponent<Animator>();
 
         originalScale = transform.localScale;
         originalHeight = controller.height;
@@ -107,6 +111,9 @@ public class PlayerController : MonoBehaviour
             horizVel = rot * horizVel;
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
+
+            animator.SetFloat("Speed", horizVel.sqrMagnitude);
+
         }
 
         controller.Move(horizVel * Time.deltaTime);
