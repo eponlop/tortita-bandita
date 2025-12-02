@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private float currentSpeed;
     private bool isRunning;
     private bool isTurned;
+    private bool isCrawling;
 
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
@@ -96,6 +97,23 @@ public class PlayerController : MonoBehaviour
             isTurned = false;
             //Debug.Log("No deformado");
             animator.SetBool("IsDeformed", isTurned);
+        }
+    }
+
+    public void OnArrastrarse(InputAction.CallbackContext context)
+    {
+        // Aquí iría la lógica para deformarse
+        if (context.performed)
+        {
+            isCrawling = true;
+            //Debug.Log("Deformado");
+            animator.SetBool("IsCrawling", isCrawling);
+        }
+        else if (context.canceled)
+        {
+            isCrawling = false;
+            //Debug.Log("No deformado");
+            animator.SetBool("IsCrawling", isCrawling);
         }
     }
 
