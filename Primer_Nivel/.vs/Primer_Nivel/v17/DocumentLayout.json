@@ -3,23 +3,23 @@
   "WorkspaceRootPath": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MainMenuManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\MainMenuManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\PlayerController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PauseManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\PauseManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PersistenEventSystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MainMenuManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\MainMenuManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PersistenEventSystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\SiropeConseguido.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -33,11 +33,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "MainMenuManager.cs",
               "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MainMenuManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenuManager.cs",
@@ -49,7 +49,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "PersistenEventSystem.cs",
               "DocumentMoniker": "C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PersistenEventSystem.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PersistenEventSystem.cs",
@@ -68,32 +68,34 @@
               "RelativeToolTip": "Assets\\Scripts\\PauseManager.cs",
               "ViewState": "AgIAADUAAAAAAAAAAAAAABkAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-17T16:00:45.83Z"
+              "WhenOpened": "2025-11-17T16:00:45.83Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "PlayerController.cs",
               "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PlayerController.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerController.cs",
               "ToolTip": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\PlayerController.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
-              "ViewState": "AgIAAH4AAAAAAAAAAAAAAG8AAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAFIAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-11-13T09:54:10.731Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "WanderingAI.cs",
               "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\WanderingAI.cs",
               "ToolTip": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs",
               "RelativeToolTip": "Assets\\Scripts\\WanderingAI.cs",
-              "ViewState": "AgIAADwAAAAAAAAAAAAwwFMAAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADABAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T08:43:33.688Z"
+              "WhenOpened": "2025-11-13T08:43:33.688Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",

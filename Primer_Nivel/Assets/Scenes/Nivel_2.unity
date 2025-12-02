@@ -1069,6 +1069,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 648ffaa5c9a6a9745a09dafdd6ae1fd1, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 85655e54a1e199a45adfe4698b700894, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2466,6 +2470,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 648ffaa5c9a6a9745a09dafdd6ae1fd1, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 85655e54a1e199a45adfe4698b700894, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8257,6 +8265,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3256547672567056629, guid: dfe67c9c82b030e41b33cf0052df2470, type: 3}
   m_PrefabInstance: {fileID: 1277485824}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1053030072 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8373156066742106327, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+  m_PrefabInstance: {fileID: 1467960033}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215f217899638304eb26406b00c65292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1059265417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8329,6 +8348,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 648ffaa5c9a6a9745a09dafdd6ae1fd1, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 85655e54a1e199a45adfe4698b700894, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11595,7 +11618,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   rotationSpeed: 2
-  reachDistance: 0.5
+  reachDistance: 30
   chaseSpeed: 10
   waypoints:
   - {fileID: 1889802498}
@@ -12828,6 +12851,46 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: ebfdb890-0998-44ba-a6bc-409ea8759a81
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: 'OnFoot/Arrastrarse[/Keyboard/c]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1053030072}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnArrastrarse
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5729765373503169848, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_Name
       value: GalletitaBandita

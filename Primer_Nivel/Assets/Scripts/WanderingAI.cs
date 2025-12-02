@@ -38,6 +38,7 @@ public class WanderingAI : MonoBehaviour
 
     private bool chasing = false;
 
+    private bool patrolling = false;
 
 
 
@@ -83,6 +84,7 @@ public class WanderingAI : MonoBehaviour
 
                 chasing = true;
 
+                patrolling = false;
 
 
 
@@ -98,6 +100,7 @@ public class WanderingAI : MonoBehaviour
 
             chasing = false;
 
+            patrolling = true;
 
 
 
@@ -113,7 +116,7 @@ public class WanderingAI : MonoBehaviour
 
             animator.SetBool("isChasing", chasing);
 
-
+            animator.SetBool("isPatrolling", patrolling);
 
 
 
@@ -126,6 +129,8 @@ public class WanderingAI : MonoBehaviour
             Patrol();
 
             animator.SetBool("isChasing", chasing);
+
+            animator.SetBool("isPatrolling", patrolling);
 
         }
 
