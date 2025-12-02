@@ -104,6 +104,25 @@ public class PlayerController : MonoBehaviour
         // Selecciona la velocidad según el estado
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
+        if (isTurned)
+        {
+            //bajar el radio a 0.025
+            controller.radius = 0.025f;
+            currentSpeed = walkSpeed / 1.3f; //reducir velocidad al caminar
+
+            if (isRunning) //si está corriendo, que deje de correr
+            {
+                isRunning = false;
+                animator.SetBool("IsRunning", isRunning);
+            }
+
+        }
+        else
+        {
+            //volver al radio original
+            controller.radius = originalRadius;
+        }
+
         // Movimiento relativo a la cámara
         Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
         animator.SetFloat("Speed", horizVel.sqrMagnitude);
@@ -169,18 +188,6 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("IsTired", isTired);
 
             }
-        }
-
-        if (isTurned)
-        {
-            //bajar el radio a 0.025
-            controller.radius = 0.025f;
-
-        }
-        else
-        {
-            //volver al radio original
-            controller.radius = originalRadius;
         }
 
 
