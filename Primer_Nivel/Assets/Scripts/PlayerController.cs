@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public float recoveryTimer = 0f;            // Temporizador de recuperación
     public float staminaRecovery = 7f;          // Por segundo al no correr
     public float staminaRecoveryStill = 15f;    // Por segundo al estar quieto
+    public float crawlingSpeedMultiplier = 0.5f; // Multiplicador de velocidad al arrastrarse
     public bool isTired = false;
 
     private Vector3 originalScale;             // Escala original del jugador
@@ -68,17 +69,23 @@ public class PlayerController : MonoBehaviour
     // Correr (Input de botón)
     public void OnRun(InputAction.CallbackContext context)
     {
-        if (context.performed && currentStamina >= minStaminaToRun && !isTired)
+        // Bloqueo de inicio de sprint si está arrastrándose.
+        if (context.performed && currentStamina >= minStaminaToRun && !isTired && !isCrawling)
         {
             isRunning = true;
-            //Debug.Log("Running");
             animator.SetBool("IsRunning", isRunning);
-        }
 
+            // Si el jugador estaba arrastrándose (por si la lógica de OnArrastrarse falla)
+            // Aunque la condición de arriba lo bloquea, esta es una doble seguridad.
+            if (isCrawling)
+            {
+                isCrawling = false;
+                animator.SetBool("IsCrawling", isCrawling);
+            }
+        }
         else if (context.canceled)
         {
             isRunning = false;
-            //Debug.Log("BackToWalk");
             animator.SetBool("IsRunning", isRunning);
         }
     }
@@ -102,17 +109,19 @@ public class PlayerController : MonoBehaviour
 
     public void OnArrastrarse(InputAction.CallbackContext context)
     {
-        // Aquí iría la lógica para deformarse
         if (context.performed)
         {
-            isCrawling = true;
-            //Debug.Log("Deformado");
-            animator.SetBool("IsCrawling", isCrawling);
+            // Solo permite arrastrarse si NO está corriendo.
+            if (!isRunning)
+            {
+                isCrawling = true;
+                animator.SetBool("IsCrawling", isCrawling);
+            }
+            // Si estaba corriendo, la entrada se ignora y isCrawling permanece false.
         }
         else if (context.canceled)
         {
             isCrawling = false;
-            //Debug.Log("No deformado");
             animator.SetBool("IsCrawling", isCrawling);
         }
     }
@@ -147,14 +156,21 @@ public class PlayerController : MonoBehaviour
 
         bool isMoving = moveInput.sqrMagnitude > 0.1f; // Umbral para considerar movimiento
 
-        if (isMoving)
+        if (isMoving && isCrawling)
         {
+            Quaternion rot = Quaternion.Euler(0, camera.eulerAngles.y, 0);
+            horizVel = rot * horizVel * crawlingSpeedMultiplier;
+            Quaternion direction = Quaternion.LookRotation(horizVel);
+            transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
+        }
+        else if (isMoving) // Corregido: Si no se arrastra Y se está moviendo
+        {
             Quaternion rot = Quaternion.Euler(0, camera.eulerAngles.y, 0);
             horizVel = rot * horizVel;
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
 
-          
+
 
         }
 
@@ -162,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
 
         // Gestión de la resistencia
-        if (isRunning && isMoving && !isTired && currentStamina > 0f)
+        if (isRunning && isMoving && !isTired && !isCrawling && currentStamina > 0f)
         {
             // Correr y gastar stamina
             currentStamina -= staminaDrain * Time.deltaTime;
