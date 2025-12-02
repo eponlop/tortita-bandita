@@ -71,12 +71,14 @@ public class PlayerController : MonoBehaviour
         {
             isRunning = true;
             //Debug.Log("Running");
+            animator.SetBool("IsRunning", isRunning);
         }
 
         else if (context.canceled)
         {
             isRunning = false;
             //Debug.Log("BackToWalk");
+            animator.SetBool("IsRunning", isRunning);
         }
     }
 
@@ -87,11 +89,13 @@ public class PlayerController : MonoBehaviour
        {
             isTurned = true;
             //Debug.Log("Deformado");
+            animator.SetBool("IsDeformed", isTurned);
         }
         else if (context.canceled)
         {
             isTurned = false;
             //Debug.Log("No deformado");
+            animator.SetBool("IsDeformed", isTurned);
         }
     }
 
@@ -102,6 +106,7 @@ public class PlayerController : MonoBehaviour
 
         // Movimiento relativo a la cámara
         Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
+        animator.SetFloat("Speed", horizVel.sqrMagnitude);
 
         bool isMoving = moveInput.sqrMagnitude > 0.1f; // Umbral para considerar movimiento
 
@@ -112,8 +117,7 @@ public class PlayerController : MonoBehaviour
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
 
-            animator.SetFloat("Speed", horizVel.sqrMagnitude);
-            Debug.Log($ "Moviéndome a {horizVel}");
+          
 
         }
 
@@ -133,6 +137,8 @@ public class PlayerController : MonoBehaviour
                 isTired = true;
                 isRunning = false; // forzar que deje de correr
                 //Debug.Log("Me he cansado");
+                animator.SetBool("IsTired", isTired);
+                animator.SetBool("IsRunning", isRunning);
             }
         }
         else
@@ -141,6 +147,7 @@ public class PlayerController : MonoBehaviour
             if (currentStamina < minStaminaToRun || isTired)
             {
                 isRunning = false;
+                animator.SetBool("IsRunning", isRunning);
             }
 
             // No está corriendo, empieza a contar el delay
@@ -159,7 +166,8 @@ public class PlayerController : MonoBehaviour
                 currentStamina = maxStamina;
                 isTired = false;
                 //Debug.Log("Tengo la resistencia al máximo");
-              
+                animator.SetBool("IsTired", isTired);
+
             }
         }
 
