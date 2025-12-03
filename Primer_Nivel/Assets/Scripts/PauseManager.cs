@@ -74,6 +74,6 @@ public class PauseManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         if (cursorFixCoroutine != null) { StopCoroutine(cursorFixCoroutine); cursorFixCoroutine = null; }
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("EscenaMenu");
     }
 }

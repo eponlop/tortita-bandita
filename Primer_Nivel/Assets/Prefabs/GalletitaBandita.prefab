@@ -450,7 +450,7 @@ MonoBehaviour:
     m_ActionName: 'OnFoot/Deformarse[/Keyboard/e]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6925009607896967047, guid: e133cb25c5f7c874ca507a1ec23630f7, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager, Assembly-CSharp
         m_MethodName: OnPause
         m_Mode: 0
@@ -464,6 +464,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 073623df-cf90-4369-8d6a-46494b17436e
     m_ActionName: 'OnFoot/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ebfdb890-0998-44ba-a6bc-409ea8759a81
+    m_ActionName: 'OnFoot/Arrastrarse[/Keyboard/c]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: OnFoot
@@ -492,6 +496,7 @@ MonoBehaviour:
   recoveryTimer: 0
   staminaRecovery: 7
   staminaRecoveryStill: 15
+  crawlingSpeedMultiplier: 0.5
   isTired: 0
   targetScale: {x: 5, y: 20, z: 20}
   targetHeight: 0.3
