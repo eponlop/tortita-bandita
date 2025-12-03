@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 
 [RequireComponent(typeof(CharacterController))]
@@ -151,6 +151,8 @@ public class WanderingAI : MonoBehaviour
         {
 
             Debug.Log("¡El enemigo atrapó al jugador!");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
 
             // Aquí puedes añadir la lógica de daño, reiniciar nivel, etc.
 
