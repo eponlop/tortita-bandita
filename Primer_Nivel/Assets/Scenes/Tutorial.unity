@@ -4049,6 +4049,17 @@ Transform:
   - {fileID: 2127700077}
   m_Father: {fileID: 75313418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1533669988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6925009607896967047, guid: e133cb25c5f7c874ca507a1ec23630f7, type: 3}
+  m_PrefabInstance: {fileID: 841119828}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed0bb07e59f93cf42bd1c00be2fabb32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1534870694 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3321562665811358708, guid: c6f85d788749cba488b395ada73ab843, type: 3}
@@ -5522,7 +5533,15 @@ PrefabInstance:
       value: 'OnFoot/Arrastrarse[/Keyboard/ctrl]'
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
@@ -5530,16 +5549,32 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1533669988}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1167798068}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnPause
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnArrastrarse
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: PauseManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
