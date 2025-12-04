@@ -2099,8 +2099,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684800314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11727531, y: -0.69731385, z: 0.11727533, w: 0.6973137}
-  m_LocalPosition: {x: 102.5, y: 5.59, z: -0.2500004}
+  m_LocalRotation: {x: 0.09662955, y: -0.7004732, z: 0.09662954, w: 0.70047325}
+  m_LocalPosition: {x: 104, y: 5.59, z: -0.25000048}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2263,8 +2263,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5, y: 0}
-  m_SizeDelta: {x: 20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &741809649
 MonoBehaviour:
@@ -2279,7 +2279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.104001045, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.5849056, g: 0.31330204, b: 0.0744927, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2396,10 +2396,10 @@ RectTransform:
   - {fileID: 741809648}
   m_Father: {fileID: 1806157478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 2.5}
-  m_SizeDelta: {x: -20, y: -5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 140, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &778787474 stripped
 Transform:
@@ -4567,7 +4567,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 120, y: 50}
-  m_SizeDelta: {x: 160, y: 20}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1806157479
 MonoBehaviour:
@@ -4582,6 +4582,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 1806157480}
+  fill: {fileID: 1834961673}
+  originalColor: {r: 1, g: 1, b: 1, a: 1}
+  lowColor: {r: 1, g: 0, b: 0, a: 1}
+  flashSpeed: 4
+  flashThreshold: 25
 --- !u!114 &1806157480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4665,15 +4670,15 @@ RectTransform:
   m_GameObject: {fileID: 1834961671}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.05, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1806157478}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.25}
-  m_AnchorMax: {x: 1, y: 0.75}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1834961673
 MonoBehaviour:
@@ -4695,8 +4700,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 87237c43937ad2a49b0c0aa62db772c1, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5975,6 +5980,22 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1222576771346377354, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: Orbits.Top.Radius
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222576771346377354, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: Orbits.Bottom.Radius
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1222576771346377354, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: Orbits.Center.Radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2759291275882352964, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1167798068}
     - target: {fileID: 5729765373503169848, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_Name
       value: GalletitaBandita
@@ -6019,6 +6040,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00000007152558
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.2795
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.40000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9906187
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.13665481
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000084293696
+      objectReference: {fileID: 0}
+    - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000005268356
+      objectReference: {fileID: 0}
     - target: {fileID: 8373156066742106327, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: barra
       value: 
@@ -6027,6 +6076,14 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 684800319}
+    - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: CollideAgainst.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: MinimumDistanceFromTarget
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
