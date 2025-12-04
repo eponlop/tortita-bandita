@@ -4,46 +4,48 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-
+    // Animación y Velocidad
     private Animator animator;
     private float currentSpeed;
     private bool isRunning;
     private bool isTurned;
     private bool isCrawling;
 
+    [Header("Velocidad")]
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
 
 
-    public float currentStamina;                // Resistencia actual
-    public float recoverRate;                   // Tasa de recuperación actual
-
-    public float maxStamina = 100f;             // Resistencia máxima
-    public float minStaminaToRun = 25f;         // Resistencia mínima para poder correr
-    public float staminaDrain = 20f;            // Por segundo al correr    
-    public float recoveryDelay = 2f;            // Segundos antes de empezar a recuperar
-    public float recoveryTimer = 0f;            // Temporizador de recuperación
-    public float staminaRecovery = 7f;          // Por segundo al no correr
-    public float staminaRecoveryStill = 15f;    // Por segundo al estar quieto
-    public float crawlingSpeedMultiplier = 0.5f; // Multiplicador de velocidad al arrastrarse
+    [Header("Stamina")]
+    public float currentStamina;         // Resistencia actual
+    public float recoverRate;            // Tasa de recuperación actual
+    public float maxStamina = 100f;      // Resistencia máxima
+    public float minStaminaToRun = 25f;  // Resistencia mínima para poder correr/deformarse
+    public float staminaDrain = 20f;     // Por segundo al correr
+    public float turnedStaminaDrain = 10f; // Por segundo al estar deformado
+    public float recoveryDelay = 2f;     // Segundos antes de empezar a recuperar
+    public float recoveryTimer = 0f;     // Temporizador de recuperación
+    public float staminaRecovery = 7f;   // Por segundo al no correr
+    public float staminaRecoveryStill = 15f; // Por segundo al estar quieto
     public bool isTired = false;
 
-    private Vector3 originalScale;             // Escala original del jugador
-    public Vector3 targetScale = new Vector3(2f, 2f, 2f);
+    [Header("Character Controller")]
+    public float crawlingSpeedMultiplier = 0.5f; // Multiplicador de velocidad al arrastrarse
 
-    private float originalHeight;
-    private Vector3 originalCenter;
-    public float targetHeight = 1f;
-    public Vector3 targetCenter = new Vector3(0f, 0.5f, 0f);
-
+    // Character Controller Originales
     private float originalRadius;
-    public float targetRadius = 0.5f;
 
-
+    // Variables de Posición y Controller (mantener si son usadas en otros lugares)
     private CharacterController controller;
     [SerializeField] private Transform camera;
     public float rotSpeed = 15.0f;
     private Vector2 moveInput;
+
+    // Componente externo (Barra de UI)
+    public BarraStamina barra;
+
+    // Variables de Escala y Altura (eliminadas para simplificar, no afectan la lógica de Stamina/Radio)
+
 
     void Start()
     {
@@ -53,30 +55,30 @@ public class PlayerController : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        originalScale = transform.localScale;
-        originalHeight = controller.height;
-        originalCenter = controller.center;
         originalRadius = controller.radius;
 
+        if (barra != null)
+        {
+            barra.SetMaxStamina(maxStamina);
+            barra.SetStamina(currentStamina);
+        }
     }
 
-    // Movimiento (Input del joystick o teclado)
+    // --- INPUTS ---
+
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
     }
 
-    // Correr (Input de botón)
     public void OnRun(InputAction.CallbackContext context)
     {
-        // Bloqueo de inicio de sprint si está arrastrándose.
+        // Bloqueo de inicio: Cansado, baja stamina, o arrastrándose.
         if (context.performed && currentStamina >= minStaminaToRun && !isTired && !isCrawling)
         {
             isRunning = true;
             animator.SetBool("IsRunning", isRunning);
 
-            // Si el jugador estaba arrastrándose (por si la lógica de OnArrastrarse falla)
-            // Aunque la condición de arriba lo bloquea, esta es una doble seguridad.
             if (isCrawling)
             {
                 isCrawling = false;
@@ -92,18 +94,35 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeformarse(InputAction.CallbackContext context)
     {
-        // Aquí iría la lógica para deformarse
-       if (context.performed)
-       {
-            isTurned = true;
-            //Debug.Log("Deformado");
-            animator.SetBool("IsDeformed", isTurned);
+        // Solo establece el parámetro del Animator si las condiciones son válidas.
+        if (context.performed)
+        {
+            // Verificación de inicio
+            if (!isTired && currentStamina >= minStaminaToRun)
+            {
+                animator.SetBool("IsDeformed", true);
+
+                if (isRunning)
+                {
+                    isRunning = false;
+                    animator.SetBool("IsRunning", isRunning);
+                }
+
+                // Sincronizar la variable del script (para uso en Update y otros scripts)
+                isTurned = true;
+            }
+            else
+            {
+                // Si el jugador pulsa y no puede (cansado/baja stamina)
+                animator.SetBool("IsDeformed", false);
+                isTurned = false;
+            }
         }
         else if (context.canceled)
         {
+            // Cancelar siempre quita el parámetro
+            animator.SetBool("IsDeformed", false);
             isTurned = false;
-            //Debug.Log("No deformado");
-            animator.SetBool("IsDeformed", isTurned);
         }
     }
 
@@ -111,13 +130,11 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed)
         {
-            // Solo permite arrastrarse si NO está corriendo.
             if (!isRunning)
             {
                 isCrawling = true;
                 animator.SetBool("IsCrawling", isCrawling);
             }
-            // Si estaba corriendo, la entrada se ignora y isCrawling permanece false.
         }
         else if (context.canceled)
         {
@@ -126,35 +143,59 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // --- UPDATE ---
+
     private void Update()
     {
-        // Selecciona la velocidad según el estado
+        // -----------------------------------------------------------------
+        // 1. GESTIÓN DE ESTADOS Y BLOQUEO DE INICIO
+        // -----------------------------------------------------------------
+
+        // Bloqueo Forzado: Si isTired está activo, forzamos la desactivación de Correr y Deformarse.
+        if (isTired)
+        {
+            isRunning = false;
+            isTurned = false;
+            animator.SetBool("IsRunning", isRunning);
+            animator.SetBool("IsDeformed", false); // Forzamos el Animator a salir
+        }
+
+        // Lectura del estado real del Animator: Usamos este valor para aplicar efectos y drenaje.
+        bool isCurrentlyDeformed = animator.GetBool("IsDeformed");
+
+        // -----------------------------------------------------------------
+        // 2. CÁLCULO DE VELOCIDAD Y RADIO 
+        // -----------------------------------------------------------------
+
+        // Selecciona la velocidad base: Correr > Caminar
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        if (isTurned)
+        // Si el Animator está actualmente deformado (la transición fue válida)
+        if (isCurrentlyDeformed)
         {
-            //bajar el radio a 0.025
             controller.radius = 0.025f;
-            currentSpeed = walkSpeed / 1.3f; //reducir velocidad al caminar
+            currentSpeed = walkSpeed / 1.3f;
 
-            if (isRunning) //si está corriendo, que deje de correr
+            // Deformarse tiene prioridad: si corre, lo cancela.
+            if (isRunning)
             {
                 isRunning = false;
                 animator.SetBool("IsRunning", isRunning);
             }
-
         }
         else
         {
-            //volver al radio original
+            // Volver al radio original
             controller.radius = originalRadius;
         }
 
-        // Movimiento relativo a la cámara
-        Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
-        animator.SetFloat("Speed", horizVel.sqrMagnitude);
+        // -----------------------------------------------------------------
+        // 3. MOVIMIENTO Y ROTACIÓN
+        // -----------------------------------------------------------------
 
-        bool isMoving = moveInput.sqrMagnitude > 0.1f; // Umbral para considerar movimiento
+        Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
+        bool isMoving = moveInput.sqrMagnitude > 0.1f;
+        animator.SetFloat("Speed", horizVel.sqrMagnitude);
 
         if (isMoving && isCrawling)
         {
@@ -163,47 +204,61 @@ public class PlayerController : MonoBehaviour
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
         }
-        else if (isMoving) // Corregido: Si no se arrastra Y se está moviendo
-        {
+        else if (isMoving)
+        {
             Quaternion rot = Quaternion.Euler(0, camera.eulerAngles.y, 0);
             horizVel = rot * horizVel;
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
-
-
-
         }
 
         controller.Move(horizVel * Time.deltaTime);
 
+        // -----------------------------------------------------------------
+        // 4. GESTIÓN DE LA RESISTENCIA (Drenaje y Recuperación)
+        // -----------------------------------------------------------------
 
-        // Gestión de la resistencia
+        bool isStaminaDraining = false;
+        float drainRate = 0f;
+
+        // A. Drenaje por Correr (Solo si no está cansado)
         if (isRunning && isMoving && !isTired && !isCrawling && currentStamina > 0f)
         {
-            // Correr y gastar stamina
-            currentStamina -= staminaDrain * Time.deltaTime;
+            isStaminaDraining = true;
+            drainRate = staminaDrain;
+        }
+        // B. Drenaje por Deformarse (Solo si no está cansado)
+        else if (isCurrentlyDeformed && !isTired && currentStamina > 0f)
+        {
+            isStaminaDraining = true;
+            drainRate = turnedStaminaDrain;
+        }
+
+        if (isStaminaDraining)
+        {
+            // Gasto de Stamina
+            currentStamina -= drainRate * Time.deltaTime;
             recoveryTimer = 0f; // reiniciar delay de recuperación
 
             if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
-                isTired = true;
-                isRunning = false; // forzar que deje de correr
-                //Debug.Log("Me he cansado");
-                animator.SetBool("IsTired", isTired);
-                animator.SetBool("IsRunning", isRunning);
-            }
-        }
-        else
-        {
-            // Si no puede correr, asegurarse de que camine
-            if (currentStamina < minStaminaToRun || isTired)
-            {
+                isTired = true; // Cansancio total (Penalización)
+
+                // Forzar desactivación total al agotamiento
                 isRunning = false;
                 animator.SetBool("IsRunning", isRunning);
-            }
+                animator.SetBool("IsDeformed", false);
 
-            // No está corriendo, empieza a contar el delay
+                // ** CORRECCIÓN: Forzar el radio a su valor original inmediatamente **
+                controller.radius = originalRadius;
+
+                animator.SetBool("IsTired", isTired);
+            }
+        }
+        else // No está gastando stamina
+        {
+            // No está corriendo/deformándose, empieza a contar el delay
             if (recoveryTimer < recoveryDelay)
             {
                 recoveryTimer += Time.deltaTime;
@@ -212,24 +267,27 @@ public class PlayerController : MonoBehaviour
             {
                 recoverRate = isMoving ? staminaRecovery : staminaRecoveryStill;
                 currentStamina += recoverRate * Time.deltaTime;
-
             }
+
+            // Solo sale de isTired cuando la Stamina es MAXIMA
             if (currentStamina >= maxStamina)
             {
                 currentStamina = maxStamina;
-                isTired = false;
-                //Debug.Log("Tengo la resistencia al máximo");
-                animator.SetBool("IsTired", isTired);
-
+                if (isTired)
+                {
+                    isTired = false;
+                    animator.SetBool("IsTired", isTired);
+                }
             }
         }
 
+        if (barra != null)
+            barra.SetStamina(currentStamina);
 
+        // -----------------------------------------------------------------
+        // 5. APLICAR GRAVEDAD
+        // -----------------------------------------------------------------
 
-        // Aplicar gravedad
         controller.Move(Physics.gravity * Time.deltaTime);
-
-        // Debug de resistencia
-        //Debug.Log($"Stamina: {currentStamina:F1} | Moving: {isMoving} | Running: {isRunning} | Tired: {isTired} | Timer: {recoveryTimer:F2} | recoverRate: {recoverRate:F1}");
     }
 }
