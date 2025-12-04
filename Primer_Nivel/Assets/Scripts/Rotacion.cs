@@ -31,7 +31,7 @@ public class RotateChildRelative : MonoBehaviour
 
         if (playerController == null)
         {
-            Debug.LogError("PlayerController no está asignado en RotateChildRelative. La rotación no verificará la Stamina.");
+            //Debug.LogError("PlayerController no está asignado en RotateChildRelative. La rotación no verificará la Stamina.");
             playerController = GetComponentInParent<PlayerController>();
         }
     }
