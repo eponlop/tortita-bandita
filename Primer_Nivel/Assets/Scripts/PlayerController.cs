@@ -67,11 +67,8 @@ public class PlayerController : MonoBehaviour
 
         originalRadius = controller.radius;
 
-        if (barra != null)
-        {
-            barra.SetMaxStamina(maxStamina);
-            barra.SetStamina(currentStamina);
-        }
+        barra.SetMaxStamina(maxStamina);
+        barra.SetStamina(currentStamina);
     }
 
     // --- INPUTS ---
