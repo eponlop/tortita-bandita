@@ -36,13 +36,30 @@ public class WanderingAI : MonoBehaviour
     void Start()
     {
         controller = GetComponent<CharacterController>();
+
+        // 1. Obtener la referencia al jugador y al Animator
         player = GameObject.FindWithTag("Player");
         animator = GetComponent<Animator>();
 
-        // Asegura que el LineRenderer esté asignado
+        // 2. Asegurar que el LineRenderer esté asignado
         if (fovRenderer == null)
         {
             fovRenderer = GetComponent<LineRenderer>();
+        }
+
+        // ------------------ REINICIO DE ESTADO CLAVE (SOLUCIÓN) ------------------
+        // Esto asegura que, después de cargar la escena, la IA empiece
+        // siempre en estado de patrulla (no persiguiendo).
+        chasing = false;
+        patrolling = true;
+
+        // 3. Reiniciar el estado de las animaciones
+        if (animator != null)
+        {
+            animator.SetBool("isChasing", false);
+            animator.SetBool("isPatrolling", true);
+            // Opcional: poner el controlador de vuelta al frame inicial
+            animator.Play("Idle", 0, 0f);
         }
     }
 
