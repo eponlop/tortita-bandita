@@ -5984,6 +5984,10 @@ PrefabInstance:
       propertyPath: siropePrefab
       value: 
       objectReference: {fileID: 5656869201453349262, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+    - target: {fileID: 8373156066742106327, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: siropeOffsetDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: CollideAgainst.m_Bits
       value: 1
