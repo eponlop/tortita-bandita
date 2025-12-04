@@ -1,16 +1,20 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
 {
-    // AnimaciÛn y Velocidad
+    // Animaci√≥n y Velocidad
     private Animator animator;
     private float currentSpeed;
     private bool isRunning;
     private bool isTurned;
     private bool isCrawling;
+
+    // ‚≠ê NUEVAS VARIABLES DE CONTROL DE RALENTIZACI√ìN
+    private float slowFactor = 1f; // 1.0 = normal, 0.5 = 50% de velocidad
+    private bool isSlowed = false;
 
     [Header("Velocidad")]
     public float walkSpeed = 5f;
@@ -25,25 +29,25 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("Stamina")]
-    public float currentStamina;         // Resistencia actual
-    public float recoverRate;            // Tasa de recuperaciÛn actual
-    public float maxStamina = 100f;      // Resistencia m·xima
-    public float minStaminaToRun = 25f;  // Resistencia mÌnima para poder correr/deformarse
-    public float staminaDrain = 20f;     // Por segundo al correr
-    public float turnedStaminaDrain = 10f; // Por segundo al estar deformado
-    public float recoveryDelay = 2f;     // Segundos antes de empezar a recuperar
-    public float recoveryTimer = 0f;     // Temporizador de recuperaciÛn
-    public float staminaRecovery = 7f;   // Por segundo al no correr
-    public float staminaRecoveryStill = 15f; // Por segundo al estar quieto
+    public float currentStamina;
+    public float recoverRate;
+    public float maxStamina = 100f;
+    public float minStaminaToRun = 25f;
+    public float staminaDrain = 20f;
+    public float turnedStaminaDrain = 10f;
+    public float recoveryDelay = 2f;
+    public float recoveryTimer = 0f;
+    public float staminaRecovery = 7f;
+    public float staminaRecoveryStill = 15f;
     public bool isTired = false;
 
     [Header("Character Controller")]
-    public float crawlingSpeedMultiplier = 0.5f; // Multiplicador de velocidad al arrastrarse
+    public float crawlingSpeedMultiplier = 0.5f;
 
     // Character Controller Originales
     private float originalRadius;
 
-    // Variables de PosiciÛn y Controller (mantener si son usadas en otros lugares)
+    // Variables de Posici√≥n y Controller¬†
     private CharacterController controller;
     [SerializeField] private Transform camera;
     public float rotSpeed = 15.0f;
@@ -52,77 +56,70 @@ public class PlayerController : MonoBehaviour
     // Componente externo (Barra de UI)
     public BarraStamina barra;
 
-    // Variables de Escala y Altura (eliminadas para simplificar, no afectan la lÛgica de Stamina/Radio)
+    // =========================================================================
+    // üçØ HABILIDAD: MANCHA DE SIROPE
+    // =========================================================================
 
-    /*
-    void Start()
-    {
-        controller = GetComponent<CharacterController>();
-        currentSpeed = walkSpeed;
-        currentStamina = maxStamina;
+    [Header("Habilidad de Sirope")]
+    [Tooltip("Prefab de la mancha de sirope a instanciar.")]
+    public GameObject siropePrefab;
 
-        originalHeight = controller.height;
-        originalCenterY = controller.center.y;
+    [Tooltip("Distancia detr√°s del jugador donde se colocar√° la mancha.")]
+    public float siropeOffsetDistance = 1.0f;
 
-        animator = GetComponent<Animator>();
+    [Tooltip("Costo de Stamina para colocar una mancha.")]
+    public float siropeStaminaCost = 15f;
 
-        originalRadius = controller.radius;
+    // =========================================================================
 
-        barra.SetMaxStamina(maxStamina);
-        barra.SetStamina(currentStamina);
-
-        Debug.Log("Animator controller: " + animator.runtimeAnimatorController);
-    }*/
 
     private void Start()
     {
-        // 1. OBTENCI”N DE REFERENCIAS
+        // 1. OBTENCI√ìN DE REFERENCIAS
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
-        // 2. REINICIO EXPLÕCITO DE ESTADO DEL SCRIPT
-        // Es vital resetear las variables booleanas que controlan el flujo del juego 
-        // a sus valores iniciales, ya que estas no se reinician autom·ticamente al cargar la escena.
+        // 2. REINICIO EXPL√çCITO DE ESTADO DEL SCRIPT
         isRunning = false;
         isTurned = false;
         isCrawling = false;
         isTired = false;
+
+        // ‚≠ê Estado inicial de ralentizaci√≥n
+        isSlowed = false;
+        slowFactor = 1f;
 
         // Reinicio de variables de control de movimiento y stamina
         currentSpeed = walkSpeed;
         currentStamina = maxStamina;
         recoveryTimer = 0f;
 
-        // 3. INICIALIZACI”N DE VALORES ORIGINALES (CharacterController)
-        // Se necesitan los valores originales despuÈs de la recarga.
+        // 3. INICIALIZACI√ìN DE VALORES ORIGINALES (CharacterController)
         originalHeight = controller.height;
         originalCenterY = controller.center.y;
         originalRadius = controller.radius;
 
-        // Asegurar que el CharacterController estÈ en el estado 'caminando'
+        // Asegurar que el CharacterController est√© en el estado 'caminando'
         controller.height = originalHeight;
         controller.center = new Vector3(0, originalCenterY, 0);
         controller.radius = originalRadius;
 
 
-        // 4. SINCRONIZACI”N Y REINICIO DEL ANIMATOR
+        // 4. SINCRONIZACI√ìN Y REINICIO DEL ANIMATOR
         if (animator != null)
         {
-            // Reinicializa la estructura interna del Animator (pr·ctica recomendada)
             animator.Rebind();
 
-            // Sincroniza los par·metros del Animator con el estado inicial del script (false/0f)
-            animator.SetBool("IsRunning", isRunning);      // false
-            animator.SetBool("IsTired", isTired);          // false
-            animator.SetBool("IsCrawling", isCrawling);    // false
-            animator.SetBool("IsDeformed", isTurned);      // false (isTurned)
+            animator.SetBool("IsRunning", isRunning);
+            animator.SetBool("IsTired", isTired);
+            animator.SetBool("IsCrawling", isCrawling);
+            animator.SetBool("IsDeformed", isTurned);
             animator.SetFloat("Speed", 0f);
 
-            // Fuerza la reproducciÛn del clip Idle desde el inicio.
             animator.Play("idle", 0, 0f);
         }
 
-        // 5. INICIALIZACI”N DE LA UI (Barra de Stamina)
+        // 5. INICIALIZACI√ìN DE LA UI (Barra de Stamina)
         if (barra != null)
         {
             barra.SetMaxStamina(maxStamina);
@@ -138,9 +135,41 @@ public class PlayerController : MonoBehaviour
         moveInput = context.ReadValue<Vector2>();
     }
 
+    public void OnDropSirope(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            // Bloqueamos la acci√≥n si el jugador est√° cansado.
+            if (isTired)
+            {
+                Debug.Log("No se puede soltar sirope, el jugador est√° agotado.");
+                return;
+            }
+
+            // 1. Verificaci√≥n de Coste: ¬øHay suficiente Stamina?
+            if (currentStamina >= siropeStaminaCost)
+            {
+                // 2. Colocar el sirope y gastar Stamina
+                DropSiropeBehind();
+                currentStamina -= siropeStaminaCost;
+
+                // Reiniciar el contador de recuperaci√≥n (inicia el delay)
+                recoveryTimer = 0f;
+
+                // Actualizar la UI inmediatamente
+                if (barra != null)
+                    barra.SetStamina(currentStamina);
+            }
+            else
+            {
+                Debug.Log("Stamina insuficiente para soltar sirope. Se requieren: " + siropeStaminaCost);
+            }
+        }
+    }
+
     public void OnRun(InputAction.CallbackContext context)
     {
-        // Bloqueo de inicio: Cansado, baja stamina, o arrastr·ndose.
+        // Bloqueo de inicio: Cansado, baja stamina, o arrastr√°ndose.
         if (context.performed && currentStamina >= minStaminaToRun && !isTired && !isCrawling)
         {
             isRunning = true;
@@ -161,10 +190,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnDeformarse(InputAction.CallbackContext context)
     {
-        // Solo establece el par·metro del Animator si las condiciones son v·lidas.
+        // Solo establece el par√°metro del Animator si las condiciones son v√°lidas.
         if (context.performed)
         {
-            // VerificaciÛn de inicio
+            // Verificaci√≥n de inicio
             if (!isTired && currentStamina >= minStaminaToRun)
             {
                 animator.SetBool("IsDeformed", true);
@@ -187,7 +216,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (context.canceled)
         {
-            // Cancelar siempre quita el par·metro
+            // Cancelar siempre quita el par√°metro
             animator.SetBool("IsDeformed", false);
             isTurned = false;
         }
@@ -195,7 +224,6 @@ public class PlayerController : MonoBehaviour
 
     public void OnArrastrarse(InputAction.CallbackContext context)
     {
-
         if (context.performed)
         {
             if (!isRunning)
@@ -216,15 +244,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     // --- UPDATE ---
 
     private void Update()
     {
         // -----------------------------------------------------------------
-        // 1. GESTI”N DE ESTADOS Y BLOQUEO DE INICIO
+        // 1. GESTI√ìN DE ESTADOS Y BLOQUEO DE INICIO
         // -----------------------------------------------------------------
 
-        // Bloqueo Forzado: Si isTired est· activo, forzamos la desactivaciÛn de Correr y Deformarse.
+        // Bloqueo Forzado: Si isTired est√° activo, forzamos la desactivaci√≥n de Correr y Deformarse.
         if (isTired)
         {
             isRunning = false;
@@ -237,13 +266,13 @@ public class PlayerController : MonoBehaviour
         bool isCurrentlyDeformed = animator.GetBool("IsDeformed");
 
         // -----------------------------------------------------------------
-        // 2. C¡LCULO DE VELOCIDAD Y RADIO 
+        // 2. C√ÅLCULO DE VELOCIDAD Y RADIO¬†
         // -----------------------------------------------------------------
 
         // Selecciona la velocidad base: Correr > Caminar
         currentSpeed = isRunning ? runSpeed : walkSpeed;
 
-        // Si el Animator est· actualmente deformado (la transiciÛn fue v·lida)
+        // Si el Animator est√° actualmente deformado (la transici√≥n fue v√°lida)
         if (isCurrentlyDeformed)
         {
             controller.radius = 0.025f;
@@ -262,18 +291,23 @@ public class PlayerController : MonoBehaviour
             controller.radius = originalRadius;
         }
 
+        // ‚≠ê Aplicamos el factor de ralentizaci√≥n AQUI
+        float finalSpeed = currentSpeed * slowFactor;
+
         // -----------------------------------------------------------------
-        // 3. MOVIMIENTO Y ROTACI”N
+        // 3. MOVIMIENTO Y ROTACI√ìN
         // -----------------------------------------------------------------
 
-        Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * currentSpeed;
+        // ‚≠ê Usamos finalSpeed en lugar de currentSpeed
+        Vector3 horizVel = new Vector3(moveInput.x, 0, moveInput.y) * finalSpeed;
         bool isMoving = moveInput.sqrMagnitude > 0.1f;
         animator.SetFloat("Speed", horizVel.sqrMagnitude);
 
         if (isMoving && isCrawling)
         {
             Quaternion rot = Quaternion.Euler(0, camera.eulerAngles.y, 0);
-            horizVel = rot * horizVel * crawlingSpeedMultiplier;
+            // ‚≠ê Aplicamos el factor de arrastrarse (crawlingSpeedMultiplier) al finalSpeed
+            horizVel = rot * new Vector3(moveInput.x, 0, moveInput.y) * finalSpeed * crawlingSpeedMultiplier;
             Quaternion direction = Quaternion.LookRotation(horizVel);
             transform.rotation = Quaternion.Lerp(transform.rotation, direction, rotSpeed * Time.deltaTime);
         }
@@ -288,19 +322,19 @@ public class PlayerController : MonoBehaviour
         controller.Move(horizVel * Time.deltaTime);
 
         // -----------------------------------------------------------------
-        // 4. GESTI”N DE LA RESISTENCIA (Drenaje y RecuperaciÛn)
+        // 4. GESTI√ìN DE LA RESISTENCIA (Drenaje y Recuperaci√≥n)
         // -----------------------------------------------------------------
 
         bool isStaminaDraining = false;
         float drainRate = 0f;
 
-        // A. Drenaje por Correr (Solo si no est· cansado)
+        // A. Drenaje por Correr (Solo si no est√° cansado)
         if (isRunning && isMoving && !isTired && !isCrawling && currentStamina > 0f)
         {
             isStaminaDraining = true;
             drainRate = staminaDrain;
         }
-        // B. Drenaje por Deformarse (Solo si no est· cansado)
+        // B. Drenaje por Deformarse (Solo si no est√° cansado)
         else if (isCurrentlyDeformed && !isTired && currentStamina > 0f)
         {
             isStaminaDraining = true;
@@ -311,32 +345,32 @@ public class PlayerController : MonoBehaviour
         {
             // Gasto de Stamina
             currentStamina -= drainRate * Time.deltaTime;
-            recoveryTimer = 0f; // reiniciar delay de recuperaciÛn
+            recoveryTimer = 0f; // reiniciar delay de recuperaci√≥n
 
             if (currentStamina <= 0f)
             {
                 currentStamina = 0f;
-                isTired = true; // Cansancio total (PenalizaciÛn)
+                isTired = true; // Cansancio total (Penalizaci√≥n)
 
-                // Forzar desactivaciÛn total al agotamiento
+                // Forzar desactivaci√≥n total al agotamiento
                 isRunning = false;
                 animator.SetBool("IsRunning", isRunning);
                 animator.SetBool("IsDeformed", false);
 
-                // ** CORRECCI”N: Forzar el radio a su valor original inmediatamente **
+                // Forzar el radio a su valor original inmediatamente
                 controller.radius = originalRadius;
 
                 animator.SetBool("IsTired", isTired);
             }
         }
-        else // No est· gastando stamina
+        else // No est√° gastando stamina
         {
-            // No est· corriendo/deform·ndose, empieza a contar el delay
+            // No est√° corriendo/deform√°ndose, empieza a contar el delay
             if (recoveryTimer < recoveryDelay)
             {
                 recoveryTimer += Time.deltaTime;
             }
-            else // ya pasÛ el delay, puede recuperar stamina
+            else // ya pas√≥ el delay, puede recuperar stamina
             {
                 recoverRate = isMoving ? staminaRecovery : staminaRecoveryStill;
                 currentStamina += recoverRate * Time.deltaTime;
@@ -362,5 +396,64 @@ public class PlayerController : MonoBehaviour
         // -----------------------------------------------------------------
 
         controller.Move(Physics.gravity * Time.deltaTime);
+    }
+
+    // =========================================================================
+    // ‚≠ê NUEVA L√ìGICA: RALENTIZACI√ìN (para interacci√≥n con SiropeEffect.cs)
+    // =========================================================================
+
+    /// <summary>
+    /// Aplica un factor de ralentizaci√≥n al jugador. 
+    /// Llamado por el script SiropeEffect cuando el jugador entra en el Trigger.
+    /// </summary>
+    /// <param name="factor">El multiplicador de velocidad (ej: 0.5 para 50%).</param>
+    public void ApplySlow(float factor)
+    {
+        if (isSlowed) return; // Ya est√° ralentizado
+
+        slowFactor = factor;
+        isSlowed = true;
+        Debug.Log("Jugador ralentizado.");
+    }
+
+    /// <summary>
+    /// Elimina el efecto de ralentizaci√≥n.
+    /// Llamado por el script SiropeEffect cuando el jugador sale del Trigger.
+    /// </summary>
+    public void RemoveSlow()
+    {
+        if (!isSlowed) return; // No estaba ralentizado
+
+        slowFactor = 1f; // Vuelve a velocidad normal
+        isSlowed = false;
+        Debug.Log("Ralentizaci√≥n del jugador eliminada.");
+    }
+
+
+    // =========================================================================
+    // ‚öôÔ∏è L√ìGICA DE HABILIDAD: SOLTAR SIROPE
+    // =========================================================================
+
+    /// <summary>
+    /// Calcula la posici√≥n detr√°s del jugador e instancia el prefab del sirope.
+    /// </summary>
+    void DropSiropeBehind()
+    {
+        if (siropePrefab == null)
+        {
+            Debug.LogError("¬°ERROR! El Prefab de Sirope no est√° asignado en el Inspector.");
+            return;
+        }
+
+        // 1. Calcular la posici√≥n: Posici√≥n actual - (Direcci√≥n hacia atr√°s * Distancia de separaci√≥n)
+        Vector3 positionBehind = transform.position + (transform.forward * -1f * siropeOffsetDistance);
+
+        // 2. Ajustar la altura 'Y' para que quede en el suelo
+        positionBehind.y = transform.position.y - (controller.height / 2f) + 0.05f;
+
+        // 3. Instanciar el Prefab con la rotaci√≥n del jugador
+        Instantiate(siropePrefab, positionBehind, transform.rotation);
+
+        Debug.Log("Mancha de sirope colocada detr√°s del jugador.");
     }
 }

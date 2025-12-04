@@ -1,5 +1,6 @@
-using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para la lÌnea de SceneManager.LoadScene
+Ôªøusing UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Collections; // Necesario para la Corrutina
 
 [RequireComponent(typeof(CharacterController))]
 public class WanderingAI : MonoBehaviour
@@ -10,17 +11,26 @@ public class WanderingAI : MonoBehaviour
     public float reachDistance = 0.5f;
     public float chaseSpeed = 6.0f;
 
-    [Header("DetecciÛn")]
-    public float viewAngle = 180f; // ¡ngulo total del cono de visiÛn
-    public float viewDistance = 60f; // Distancia m·xima de visiÛn
-    public float eyeHeight = 1.5f; // Altura del rayo de visiÛn
+    // ‚≠ê NUEVA VARIABLE: Almacena la velocidad actual real (base o persecuci√≥n)
+    private float currentMovementSpeed;
+
+    [Header("Efectos de Estado")]
+    // ‚≠ê NUEVAS VARIABLES DE CONTROL DE RALENTIZACI√ìN
+    private float slowFactor = 1f; // 1.0 = normal, 0.5 = 50% de velocidad
+    private bool isSlowed = false;
+    private Coroutine slowCoroutine; // Para controlar la corrutina de finalizaci√≥n lenta
+
+    [Header("Detecci√≥n")]
+    public float viewAngle = 180f;
+    public float viewDistance = 60f;
+    public float eyeHeight = 1.5f;
 
     [Header("Waypoints")]
     public Transform[] waypoints;
 
     private GameObject player;
     private int currentWaypoint = 0;
-    private int dirSign = 1; // +1 = adelante, -1 = atr·s
+    private int dirSign = 1;
     private CharacterController controller;
 
     private bool chasing = false;
@@ -28,9 +38,9 @@ public class WanderingAI : MonoBehaviour
 
     private Animator animator;
 
-    [Header("VisualizaciÛn Runtime")] // Necesario para LineRenderer
+    [Header("Visualizaci√≥n Runtime")]
     public LineRenderer fovRenderer;
-    public int segments = 10; // Para suavizar el arco del cono
+    public int segments = 10;
 
 
     void Start()
@@ -41,31 +51,30 @@ public class WanderingAI : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         animator = GetComponent<Animator>();
 
-        // 2. Asegurar que el LineRenderer estÈ asignado
+        // 2. Asegurar que el LineRenderer est√© asignado
         if (fovRenderer == null)
         {
             fovRenderer = GetComponent<LineRenderer>();
         }
 
-        // ------------------ REINICIO DE ESTADO CLAVE (SOLUCI”N) ------------------
-        // Esto asegura que, despuÈs de cargar la escena, la IA empiece
-        // siempre en estado de patrulla (no persiguiendo).
+        // ------------------ REINICIO DE ESTADO CLAVE ------------------
         chasing = false;
         patrolling = true;
+        isSlowed = false; // Aseguramos el estado inicial
+        slowFactor = 1f;
 
         // 3. Reiniciar el estado de las animaciones
         if (animator != null)
         {
             animator.SetBool("isChasing", false);
             animator.SetBool("isPatrolling", true);
-            // Opcional: poner el controlador de vuelta al frame inicial
             animator.Play("patrolling", 0, 0f);
         }
     }
 
     void Update()
     {
-        // ------------------ L”GICA DE DETECCI”N CON CONO ------------------
+        // ------------------ L√ìGICA DE DETECCI√ìN CON CONO ------------------
         bool playerDetected = CheckForPlayerFOV();
 
         if (playerDetected)
@@ -79,7 +88,7 @@ public class WanderingAI : MonoBehaviour
             patrolling = true;
         }
 
-        // ------------------ EJECUCI”N DEL COMPORTAMIENTO ------------------
+        // ------------------ EJECUCI√ìN DEL COMPORTAMIENTO ------------------
         if (chasing)
         {
             ChasePlayer();
@@ -95,11 +104,50 @@ public class WanderingAI : MonoBehaviour
 
         // Llamada para dibujar el FOV en cada frame (si LineRenderer existe)
         DrawFOVRuntime();
+
     }
 
-    // ---------------- FUNCI”N: CONO DE VISI”N (FOV) ----------------
+    // =========================================================================
+    // ‚≠ê NUEVA L√ìGICA: RALENTIZACI√ìN
+    // =========================================================================
+
+    /// <summary>
+    /// Aplica un factor de ralentizaci√≥n al enemigo.
+    /// Llamado por el script SiropeEffect cuando el enemigo entra en el Trigger.
+    /// </summary>
+    /// <param name="factor">El multiplicador de velocidad (ej: 0.5 para 50%).</param>
+    public void ApplySlow(float factor)
+    {
+        // Si ya est√° ralentizado, no reiniciamos la corrutina, simplemente actualizamos el factor.
+        if (isSlowed) return;
+
+        slowFactor = factor;
+        isSlowed = true;
+
+        // Opcional: Si quieres un efecto visual en el enemigo, act√≠valo aqu√≠.
+        // GetComponent<Renderer>().material.color = Color.blue; 
+    }
+
+    /// <summary>
+    /// Elimina el efecto de ralentizaci√≥n.
+    /// Llamado por el script SiropeEffect cuando el enemigo sale del Trigger.
+    /// </summary>
+    public void RemoveSlow()
+    {
+        if (!isSlowed) return;
+
+        slowFactor = 1f; // Vuelve a velocidad normal
+        isSlowed = false;
+
+        // Opcional: Si quieres un efecto visual en el enemigo, desact√≠valo aqu√≠.
+        // GetComponent<Renderer>().material.color = Color.white; 
+    }
+
+
+    // ---------------- FUNCI√ìN: CONO DE VISI√ìN (FOV) ----------------
     bool CheckForPlayerFOV()
     {
+        // ... (Mismo c√≥digo CheckForPlayerFOV) ...
         if (player == null) return false;
 
         Vector3 directionToPlayer = player.transform.position - transform.position;
@@ -111,14 +159,14 @@ public class WanderingAI : MonoBehaviour
             return false;
         }
 
-        // 2. Control del ¡ngulo (Cono de VisiÛn)
+        // 2. Control del √Ångulo (Cono de Visi√≥n)
         Vector3 directionNormalized = directionToPlayer.normalized;
         float dotProduct = Vector3.Dot(transform.forward, directionNormalized);
         float cosineThreshold = Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
 
         if (dotProduct > cosineThreshold)
         {
-            // 3. VerificaciÛn de Obstrucciones (Raycast desde la altura de los ojos)
+            // 3. Verificaci√≥n de Obstrucciones (Raycast desde la altura de los ojos)
             Vector3 rayStartPoint = transform.position + Vector3.up * eyeHeight;
 
             RaycastHit hit;
@@ -134,13 +182,13 @@ public class WanderingAI : MonoBehaviour
         return false;
     }
 
-    // ---------------- DIBUJO DEL CAMPO DE VISI”N EN JUEGO (RUNTIME) ----------------
+    // ---------------- DIBUJO DEL CAMPO DE VISI√ìN EN JUEGO (RUNTIME) ----------------
     void DrawFOVRuntime()
     {
         if (fovRenderer == null) return;
 
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
-        int pointCount = segments + 3; // Origen + Arco + Cierre
+        int pointCount = segments + 3;
 
         fovRenderer.positionCount = pointCount;
         Vector3[] points = new Vector3[pointCount];
@@ -152,7 +200,6 @@ public class WanderingAI : MonoBehaviour
         {
             float currentAngle = -viewAngle / 2 + angleStep * i;
 
-            // Rotar el vector forward (transform.forward) por el ·ngulo alrededor del eje Y (transform.up)
             Quaternion rotation = Quaternion.AngleAxis(currentAngle, transform.up);
             Vector3 direction = rotation * transform.forward;
 
@@ -166,7 +213,7 @@ public class WanderingAI : MonoBehaviour
 
         fovRenderer.SetPositions(points);
 
-        // Opcional: Cambiar el color seg˙n el estado
+        // Opcional: Cambiar el color seg√∫n el estado
         if (fovRenderer.material != null)
         {
             fovRenderer.material.color = chasing ? Color.red : Color.yellow;
@@ -174,7 +221,7 @@ public class WanderingAI : MonoBehaviour
     }
 
 
-    // ---------------- DEPURACI”N: DIBUJAR CAMPO DE VISI”N (GIZMOS - Solo Editor) ----------------
+    // ---------------- DEPURACI√ìN: DIBUJAR CAMPO DE VISI√ìN (GIZMOS - Solo Editor) ----------------
     private void OnDrawGizmos()
     {
         if (transform == null)
@@ -183,29 +230,29 @@ public class WanderingAI : MonoBehaviour
         // 1. Definir el punto de inicio del rayo (altura de los ojos)
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
 
-        // 2. Dibujar el rango de visiÛn (color rojo si persigue, amarillo si patrulla)
+        // 2. Dibujar el rango de visi√≥n (color rojo si persigue, amarillo si patrulla)
         Gizmos.color = chasing ? Color.red : Color.yellow;
 
         float currentViewDistance = viewDistance;
         float currentViewAngle = viewAngle;
 
-        // 3. Dibujar la lÌnea central de visiÛn
+        // 3. Dibujar la l√≠nea central de visi√≥n
         Gizmos.DrawRay(origin, transform.forward * currentViewDistance);
 
-        // 4. Dibujar los lÌmites del cono
+        // 4. Dibujar los l√≠mites del cono
         float halfAngle = currentViewAngle * 0.5f;
 
-        // LÌmite derecho
+        // L√≠mite derecho
         Quaternion rightRotation = Quaternion.AngleAxis(halfAngle, transform.up);
         Vector3 rightDirection = rightRotation * transform.forward;
         Gizmos.DrawRay(origin, rightDirection * currentViewDistance);
 
-        // LÌmite izquierdo
+        // L√≠mite izquierdo
         Quaternion leftRotation = Quaternion.AngleAxis(-halfAngle, transform.up);
         Vector3 leftDirection = leftRotation * transform.forward;
         Gizmos.DrawRay(origin, leftDirection * currentViewDistance);
 
-        // 5. Dibujar un arco de conexiÛn (la "tapa" del cono)
+        // 5. Dibujar un arco de conexi√≥n (la "tapa" del cono)
         Vector3 rightPoint = origin + rightDirection * currentViewDistance;
         Vector3 leftPoint = origin + leftDirection * currentViewDistance;
         Gizmos.DrawLine(rightPoint, leftPoint);
@@ -220,8 +267,7 @@ public class WanderingAI : MonoBehaviour
     {
         if (hit.gameObject == player)
         {
-            Debug.Log("°El enemigo atrapÛ al jugador!");
-            // Asumo que esta lÌnea es para reiniciar la escena al atrapar al jugador
+            Debug.Log("¬°El enemigo atrap√≥ al jugador!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -230,13 +276,14 @@ public class WanderingAI : MonoBehaviour
     {
         if (other.gameObject == player)
         {
-            Debug.Log("°El jugador entrÛ en el rango del enemigo!");
+            Debug.Log("¬°El jugador entr√≥ en el rango del enemigo!");
         }
     }
 
     // ---------------- PATRULLA ENTRE WAYPOINTS ----------------
     void Patrol()
     {
+        // ... (Tu l√≥gica de Waypoints) ...
         if (waypoints == null || waypoints.Length == 0)
             return;
 
@@ -271,11 +318,13 @@ public class WanderingAI : MonoBehaviour
             );
         }
 
-        Vector3 move = transform.forward * speed * Time.deltaTime;
+        // ‚≠ê APLICAR L√ìGICA DE VELOCIDAD: speed * slowFactor
+        currentMovementSpeed = speed; // Guardamos la velocidad base para el Animator
+        Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
         controller.Move(move);
     }
 
-    // ---------------- PERSECUCI”N ----------------
+    // ---------------- PERSECUCI√ìN ----------------
     void ChasePlayer()
     {
         if (player == null) return;
@@ -291,8 +340,14 @@ public class WanderingAI : MonoBehaviour
                 Time.deltaTime * 5.0f
             );
 
-            Vector3 move = transform.forward * chaseSpeed * Time.deltaTime;
+            // ‚≠ê APLICAR L√ìGICA DE VELOCIDAD: chaseSpeed * slowFactor
+            currentMovementSpeed = chaseSpeed; // Guardamos la velocidad base para el Animator
+            Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
             controller.Move(move);
+        }
+        else
+        {
+            currentMovementSpeed = 0f; // Quietos cerca del jugador
         }
     }
 }

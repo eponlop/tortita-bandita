@@ -68,6 +68,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Granjero Lento
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 5678284494352805590, guid: 24fc2c3e62c52bf4e9e63fd980b8e85d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -142,6 +146,8 @@ MonoBehaviour:
   waypoints:
   - {fileID: 0}
   - {fileID: 0}
+  fovRenderer: {fileID: 0}
+  segments: 10
 --- !u!120 &-6166729388963984766
 LineRenderer:
   serializedVersion: 2

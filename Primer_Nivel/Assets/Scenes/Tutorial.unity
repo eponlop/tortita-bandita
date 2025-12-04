@@ -1478,6 +1478,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Nivel_1
+--- !u!1001 &430765938
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5656869201453349262, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_Name
+      value: Sirope
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 42.122982
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7880113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.9208968
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660257
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
 --- !u!1001 &455137564
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2979,6 +3036,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8615723015486871580, guid: 6d741583624b1c34cb6de8bfb40f2ea4, type: 3}
   m_PrefabInstance: {fileID: 406236387}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1160144945
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5656869201453349262, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_Name
+      value: Sirope (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -33.400707
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7880113
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.2682817
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8660257
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4999996
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656869201453704622, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8936992615219656243, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
+      propertyPath: enemySlowFactor
+      value: 0.01
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
 --- !u!1 &1166810787
 GameObject:
   m_ObjectHideFlags: 0
@@ -5419,6 +5537,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
+      propertyPath: speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
       propertyPath: 'waypoints.Array.data[0]'
       value: 
       objectReference: {fileID: 208367832}
@@ -5660,15 +5782,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_ActionId
       value: ebfdb890-0998-44ba-a6bc-409ea8759a81
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: b551da66-9a1e-42fa-8e5c-7b5861781701
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_ActionName
       value: 'OnFoot/Arrastrarse[/Keyboard/ctrl]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: 'OnFoot/Sirope[/Keyboard/q]'
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.size
@@ -5676,6 +5806,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
@@ -5687,11 +5821,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1533669988}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1167798068}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1167798068}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
@@ -5703,12 +5845,20 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnPause
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: OnArrastrarse
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnDropSirope
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
@@ -5719,7 +5869,15 @@ PrefabInstance:
       value: PlayerController, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 371994890094761488, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 1222576771346377354, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
@@ -5822,6 +5980,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 684800319}
+    - target: {fileID: 8373156066742106327, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: siropePrefab
+      value: 
+      objectReference: {fileID: 5656869201453349262, guid: b79c48a2f43e16c40839158141025fb4, type: 3}
     - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: CollideAgainst.m_Bits
       value: 1
@@ -5931,3 +6093,5 @@ SceneRoots:
   - {fileID: 1298327169}
   - {fileID: 1021761047487896082}
   - {fileID: 841119828}
+  - {fileID: 430765938}
+  - {fileID: 1160144945}
