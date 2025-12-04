@@ -2099,8 +2099,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 684800314}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.09662955, y: -0.7004732, z: 0.09662954, w: 0.70047325}
-  m_LocalPosition: {x: 104, y: 5.59, z: -0.25000048}
+  m_LocalRotation: {x: 0.08796922, y: -0.7016134, z: 0.087969206, w: 0.70161355}
+  m_LocalPosition: {x: 103.8, y: 5.729661, z: -0.2500005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5422,6 +5422,50 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d741583624b1c34cb6de8bfb40f2ea4, type: 3}
+--- !u!1 &2124725229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 389576141595572511, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+  m_PrefabInstance: {fileID: 6137809258301463321}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2124725237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124725229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbe43d662878a7c43bcd44d43c9e2094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollideAgainst:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  IgnoreTag: 
+  TransparentLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  MinimumDistanceFromTarget: 1
+  AvoidObstacles:
+    Enabled: 1
+    DistanceLimit: 0
+    MinimumOcclusionTime: 0
+    CameraRadius: 0.7
+    UseFollowTarget:
+      Enabled: 0
+      YOffset: 0
+    Strategy: 2
+    MaximumEffort: 8
+    SmoothingTime: 0
+    Damping: 1.5
+    DampingWhenOccluded: 1
+  ShotQualityEvaluation:
+    Enabled: 0
+    OptimalDistance: 10
+    NearLimit: 5
+    FarLimit: 30
+    MaxQualityBoost: 0.2
 --- !u!1 &2127700076
 GameObject:
   m_ObjectHideFlags: 0
@@ -6040,6 +6084,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7353842742851495408, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: Composition.ScreenPosition.y
+      value: 0.04145074
+      objectReference: {fileID: 0}
     - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00000007152558
@@ -6054,19 +6102,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9906187
+      value: 0.9922313
       objectReference: {fileID: 0}
     - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13665481
+      value: 0.12440724
       objectReference: {fileID: 0}
     - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000084293696
+      value: 0.00000012644055
       objectReference: {fileID: 0}
     - target: {fileID: 7715802393024126988, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000005268356
+      value: -0.000000010536713
       objectReference: {fileID: 0}
     - target: {fileID: 8373156066742106327, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: barra
@@ -6081,13 +6129,26 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: AvoidObstacles.Strategy
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
       propertyPath: MinimumDistanceFromTarget
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      propertyPath: AvoidObstacles.MaximumEffort
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 8613944653426949924, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+    - {fileID: 1070618559976212547, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 389576141595572511, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2124725237}
   m_SourcePrefab: {fileID: 100100000, guid: e31b59321a46cfc45b13f736e1f8a786, type: 3}
 --- !u!1001 &8771942496286120957
 PrefabInstance:
