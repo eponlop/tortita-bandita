@@ -59,7 +59,7 @@ public class WanderingAI : MonoBehaviour
             animator.SetBool("isChasing", false);
             animator.SetBool("isPatrolling", true);
             // Opcional: poner el controlador de vuelta al frame inicial
-            animator.Play("Idle", 0, 0f);
+            animator.Play("patrolling", 0, 0f);
         }
     }
 

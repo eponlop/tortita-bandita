@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
     // Variables de Escala y Altura (eliminadas para simplificar, no afectan la lógica de Stamina/Radio)
 
-
+    /*
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -69,7 +70,44 @@ public class PlayerController : MonoBehaviour
 
         barra.SetMaxStamina(maxStamina);
         barra.SetStamina(currentStamina);
+
+        Debug.Log("Animator controller: " + animator.runtimeAnimatorController);
+    }*/
+
+    private IEnumerator Start()
+    {
+        controller = GetComponent<CharacterController>();
+        currentSpeed = walkSpeed;
+        currentStamina = maxStamina;
+
+        originalHeight = controller.height;
+        originalCenterY = controller.center.y;
+
+        animator = GetComponent<Animator>();
+
+        originalRadius = controller.radius;
+
+        barra.SetMaxStamina(maxStamina);
+        barra.SetStamina(currentStamina);
+
+        Debug.Log("Animator controller: " + animator.runtimeAnimatorController);
+
+        // IMPORTANTE — Esperar 1 frame
+        yield return null;
+
+        // Reparación del Animator tras recargar escena
+        animator.Rebind();
+        animator.Update(0f);
+        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
+        animator.enabled = true;
+        animator.speed = 1f;
+
+        // Forzar animación inicial
+        animator.Play("idle", 0, 0f);
+
+        Debug.Log("Animator reparado después de recargar.");
     }
+
 
     // --- INPUTS ---
 
