@@ -16,6 +16,13 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 10f;
 
 
+    private float originalHeight;
+    private float originalCenterY;
+
+    float crouchHeight = 0.12f;
+    float crouchCenterY = 0.05f;
+
+
     [Header("Stamina")]
     public float currentStamina;         // Resistencia actual
     public float recoverRate;            // Tasa de recuperación actual
@@ -52,6 +59,9 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         currentSpeed = walkSpeed;
         currentStamina = maxStamina;
+
+        originalHeight = controller.height;
+        originalCenterY = controller.center.y;
 
         animator = GetComponent<Animator>();
 
@@ -128,16 +138,22 @@ public class PlayerController : MonoBehaviour
 
     public void OnArrastrarse(InputAction.CallbackContext context)
     {
+
         if (context.performed)
         {
             if (!isRunning)
             {
                 isCrawling = true;
                 animator.SetBool("IsCrawling", isCrawling);
+
+                controller.height = crouchHeight;
+                controller.center = new Vector3(0, crouchCenterY, 0);
             }
         }
         else if (context.canceled)
         {
+            controller.height = originalHeight;
+            controller.center = new Vector3(0, originalCenterY, 0);
             isCrawling = false;
             animator.SetBool("IsCrawling", isCrawling);
         }
