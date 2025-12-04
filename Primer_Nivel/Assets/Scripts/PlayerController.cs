@@ -74,38 +74,60 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Animator controller: " + animator.runtimeAnimatorController);
     }*/
 
-    private IEnumerator Start()
+    private void Start()
     {
+        // 1. OBTENCIÓN DE REFERENCIAS
         controller = GetComponent<CharacterController>();
-        currentSpeed = walkSpeed;
-        currentStamina = maxStamina;
-
-        originalHeight = controller.height;
-        originalCenterY = controller.center.y;
-
         animator = GetComponent<Animator>();
 
+        // 2. REINICIO EXPLÍCITO DE ESTADO DEL SCRIPT
+        // Es vital resetear las variables booleanas que controlan el flujo del juego 
+        // a sus valores iniciales, ya que estas no se reinician automáticamente al cargar la escena.
+        isRunning = false;
+        isTurned = false;
+        isCrawling = false;
+        isTired = false;
+
+        // Reinicio de variables de control de movimiento y stamina
+        currentSpeed = walkSpeed;
+        currentStamina = maxStamina;
+        recoveryTimer = 0f;
+
+        // 3. INICIALIZACIÓN DE VALORES ORIGINALES (CharacterController)
+        // Se necesitan los valores originales después de la recarga.
+        originalHeight = controller.height;
+        originalCenterY = controller.center.y;
         originalRadius = controller.radius;
 
-        barra.SetMaxStamina(maxStamina);
-        barra.SetStamina(currentStamina);
+        // Asegurar que el CharacterController esté en el estado 'caminando'
+        controller.height = originalHeight;
+        controller.center = new Vector3(0, originalCenterY, 0);
+        controller.radius = originalRadius;
 
-        Debug.Log("Animator controller: " + animator.runtimeAnimatorController);
 
-        // IMPORTANTE — Esperar 1 frame
-        yield return null;
+        // 4. SINCRONIZACIÓN Y REINICIO DEL ANIMATOR
+        if (animator != null)
+        {
+            // Reinicializa la estructura interna del Animator (práctica recomendada)
+            animator.Rebind();
 
-        // Reparación del Animator tras recargar escena
-        animator.Rebind();
-        animator.Update(0f);
-        animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
-        animator.enabled = true;
-        animator.speed = 1f;
+            // Sincroniza los parámetros del Animator con el estado inicial del script (false/0f)
+            animator.SetBool("IsRunning", isRunning);      // false
+            animator.SetBool("IsTired", isTired);          // false
+            animator.SetBool("IsCrawling", isCrawling);    // false
+            animator.SetBool("IsDeformed", isTurned);      // false (isTurned)
+            animator.SetFloat("Speed", 0f);
 
-        // Forzar animación inicial
-        animator.Play("idle", 0, 0f);
+            // Fuerza la reproducción del clip Idle desde el inicio.
+            animator.Play("idle", 0, 0f);
+        }
 
-        Debug.Log("Animator reparado después de recargar.");
+        // 5. INICIALIZACIÓN DE LA UI (Barra de Stamina)
+        if (barra != null)
+        {
+            barra.SetMaxStamina(maxStamina);
+            barra.SetStamina(currentStamina);
+        }
     }
 
 
