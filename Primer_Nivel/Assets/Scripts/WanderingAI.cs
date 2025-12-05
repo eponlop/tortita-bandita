@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections; // Necesario para la Corrutina
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class WanderingAI : MonoBehaviour
@@ -11,14 +11,11 @@ public class WanderingAI : MonoBehaviour
     public float reachDistance = 0.5f;
     public float chaseSpeed = 6.0f;
 
-    // ⭐ NUEVA VARIABLE: Almacena la velocidad actual real (base o persecución)
     private float currentMovementSpeed;
 
     [Header("Efectos de Estado")]
-    // ⭐ NUEVAS VARIABLES DE CONTROL DE RALENTIZACIÓN
-    private float slowFactor = 1f; // 1.0 = normal, 0.5 = 50% de velocidad
+    private float slowFactor = 1f;
     private bool isSlowed = false;
-    private Coroutine slowCoroutine; // Para controlar la corrutina de finalización lenta
 
     [Header("Detección")]
     public float viewAngle = 180f;
@@ -27,6 +24,11 @@ public class WanderingAI : MonoBehaviour
 
     [Header("Waypoints")]
     public Transform[] waypoints;
+
+    [Header("Audio")]
+    public AudioSource footstepsAudioSource;
+    public AudioSource stickyAudioSource;
+    public float targetPitch = 0.5f;
 
     private GameObject player;
     private int currentWaypoint = 0;
@@ -42,28 +44,40 @@ public class WanderingAI : MonoBehaviour
     public LineRenderer fovRenderer;
     public int segments = 10;
 
-
     void Start()
     {
         controller = GetComponent<CharacterController>();
 
-        // 1. Obtener la referencia al jugador y al Animator
         player = GameObject.FindWithTag("Player");
         animator = GetComponent<Animator>();
 
-        // 2. Asegurar que el LineRenderer esté asignado
         if (fovRenderer == null)
         {
             fovRenderer = GetComponent<LineRenderer>();
         }
 
-        // ------------------ REINICIO DE ESTADO CLAVE ------------------
         chasing = false;
         patrolling = true;
-        isSlowed = false; // Aseguramos el estado inicial
+        isSlowed = false;
         slowFactor = 1f;
 
-        // 3. Reiniciar el estado de las animaciones
+        // 1. Configuración Inicial del Audio:
+        // Aseguramos que AMBOS estén configurados para LOOP.
+        if (footstepsAudioSource != null)
+        {
+            footstepsAudioSource.pitch = 1.5f;
+            footstepsAudioSource.loop = true;
+            footstepsAudioSource.Stop(); // Detenemos ambos para que solo ManageFootstepAudio los inicie.
+        }
+        if (stickyAudioSource != null)
+        {
+            stickyAudioSource.loop = true;
+            stickyAudioSource.Stop();
+        }
+
+        // 2. Iniciamos el Audio de Footsteps (solo si el enemigo se mueve al inicio)
+        // La reproducción real se maneja en ManageFootstepAudio()
+
         if (animator != null)
         {
             animator.SetBool("isChasing", false);
@@ -74,7 +88,6 @@ public class WanderingAI : MonoBehaviour
 
     void Update()
     {
-        // ------------------ LÓGICA DE DETECCIÓN CON CONO ------------------
         bool playerDetected = CheckForPlayerFOV();
 
         if (playerDetected)
@@ -88,85 +101,129 @@ public class WanderingAI : MonoBehaviour
             patrolling = true;
         }
 
-        // ------------------ EJECUCIÓN DEL COMPORTAMIENTO ------------------
-        if (chasing)
+        if (animator != null)
         {
-            ChasePlayer();
+            if (chasing)
+            {
+                ChasePlayer();
+            }
+            else
+            {
+                Patrol();
+            }
             animator.SetBool("isChasing", chasing);
             animator.SetBool("isPatrolling", patrolling);
         }
         else
         {
-            Patrol();
-            animator.SetBool("isChasing", chasing);
-            animator.SetBool("isPatrolling", patrolling);
+            if (chasing)
+                ChasePlayer();
+            else
+                Patrol();
         }
 
-        // Llamada para dibujar el FOV en cada frame (si LineRenderer existe)
-        DrawFOVRuntime();
+        // Controlamos qué audioSource debe estar sonando y si debe estar en pausa.
+        ManageFootstepAudio();
 
+        DrawFOVRuntime();
     }
 
-    // =========================================================================
-    // ⭐ NUEVA LÓGICA: RALENTIZACIÓN
-    // =========================================================================
-
-    /// <summary>
-    /// Aplica un factor de ralentización al enemigo.
-    /// Llamado por el script SiropeEffect cuando el enemigo entra en el Trigger.
-    /// </summary>
-    /// <param name="factor">El multiplicador de velocidad (ej: 0.5 para 50%).</param>
     public void ApplySlow(float factor)
     {
-        // Si ya está ralentizado, no reiniciamos la corrutina, simplemente actualizamos el factor.
         if (isSlowed) return;
 
         slowFactor = factor;
         isSlowed = true;
 
-        // Opcional: Si quieres un efecto visual en el enemigo, actívalo aquí.
-        // GetComponent<Renderer>().material.color = Color.blue; 
+        // CAMBIO DE AUDIO SOURCE: Detiene Footsteps, Inicia Sticky
+        if (footstepsAudioSource != null)
+        {
+            footstepsAudioSource.Stop();
+        }
+        if (stickyAudioSource != null)
+        {
+            stickyAudioSource.pitch = targetPitch;
+            // No usamos .Play() aquí, ya que ManageFootstepAudio lo controlará
+        }
     }
 
-    /// <summary>
-    /// Elimina el efecto de ralentización.
-    /// Llamado por el script SiropeEffect cuando el enemigo sale del Trigger.
-    /// </summary>
     public void RemoveSlow()
     {
         if (!isSlowed) return;
 
-        slowFactor = 1f; // Vuelve a velocidad normal
+        slowFactor = 1f;
         isSlowed = false;
 
-        // Opcional: Si quieres un efecto visual en el enemigo, desactívalo aquí.
-        // GetComponent<Renderer>().material.color = Color.white; 
+        // CAMBIO DE AUDIO SOURCE: Detiene Sticky, Inicia Footsteps
+        if (stickyAudioSource != null)
+        {
+            stickyAudioSource.Stop();
+        }
+        if (footstepsAudioSource != null)
+        {
+            footstepsAudioSource.pitch = 1.5f;
+            // No usamos .Play() aquí, ya que ManageFootstepAudio lo controlará
+        }
     }
 
+    private void ManageFootstepAudio()
+    {
+        // La velocidad de movimiento es la velocidad de movimiento real aplicada.
+        bool isMoving = currentMovementSpeed * slowFactor > 0.01f;
 
-    // ---------------- FUNCIÓN: CONO DE VISIÓN (FOV) ----------------
+        // El AudioSource que DEBE estar activo
+        AudioSource sourceToPlay = isSlowed ? stickyAudioSource : footstepsAudioSource;
+
+        // El AudioSource que DEBE estar detenido
+        AudioSource sourceToStop = isSlowed ? footstepsAudioSource : stickyAudioSource;
+
+        // 1. Detenemos el AudioSource INACTIVO
+        if (sourceToStop != null && sourceToStop.isPlaying)
+        {
+            sourceToStop.Stop();
+        }
+
+        // 2. Controlamos la reproducción del AudioSource ACTIVO
+        if (sourceToPlay != null)
+        {
+            if (isMoving)
+            {
+                // Si se mueve, aseguramos que se esté reproduciendo o se reanude
+                if (!sourceToPlay.isPlaying)
+                {
+                    sourceToPlay.UnPause();
+                    if (!sourceToPlay.isPlaying) sourceToPlay.Play();
+                }
+            }
+            else
+            {
+                // Si está quieto, pausamos el audio
+                if (sourceToPlay.isPlaying)
+                {
+                    sourceToPlay.Pause();
+                }
+            }
+        }
+    }
+
     bool CheckForPlayerFOV()
     {
-        // ... (Mismo código CheckForPlayerFOV) ...
         if (player == null) return false;
 
         Vector3 directionToPlayer = player.transform.position - transform.position;
         float distanceToPlayer = directionToPlayer.magnitude;
 
-        // 1. Control de la Distancia
         if (distanceToPlayer > viewDistance)
         {
             return false;
         }
 
-        // 2. Control del Ángulo (Cono de Visión)
         Vector3 directionNormalized = directionToPlayer.normalized;
         float dotProduct = Vector3.Dot(transform.forward, directionNormalized);
         float cosineThreshold = Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
 
         if (dotProduct > cosineThreshold)
         {
-            // 3. Verificación de Obstrucciones (Raycast desde la altura de los ojos)
             Vector3 rayStartPoint = transform.position + Vector3.up * eyeHeight;
 
             RaycastHit hit;
@@ -182,7 +239,6 @@ public class WanderingAI : MonoBehaviour
         return false;
     }
 
-    // ---------------- DIBUJO DEL CAMPO DE VISIÓN EN JUEGO (RUNTIME) ----------------
     void DrawFOVRuntime()
     {
         if (fovRenderer == null) return;
@@ -208,61 +264,48 @@ public class WanderingAI : MonoBehaviour
             points[i + 1] = pointOnArc;
         }
 
-        // Cierra el cono volviendo al origen
         points[segments + 2] = origin;
 
         fovRenderer.SetPositions(points);
 
-        // Opcional: Cambiar el color según el estado
         if (fovRenderer.material != null)
         {
             fovRenderer.material.color = chasing ? Color.red : Color.yellow;
         }
     }
 
-
-    // ---------------- DEPURACIÓN: DIBUJAR CAMPO DE VISIÓN (GIZMOS - Solo Editor) ----------------
     private void OnDrawGizmos()
     {
         if (transform == null)
             return;
 
-        // 1. Definir el punto de inicio del rayo (altura de los ojos)
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
 
-        // 2. Dibujar el rango de visión (color rojo si persigue, amarillo si patrulla)
         Gizmos.color = chasing ? Color.red : Color.yellow;
 
         float currentViewDistance = viewDistance;
         float currentViewAngle = viewAngle;
 
-        // 3. Dibujar la línea central de visión
         Gizmos.DrawRay(origin, transform.forward * currentViewDistance);
 
-        // 4. Dibujar los límites del cono
         float halfAngle = currentViewAngle * 0.5f;
 
-        // Límite derecho
         Quaternion rightRotation = Quaternion.AngleAxis(halfAngle, transform.up);
         Vector3 rightDirection = rightRotation * transform.forward;
         Gizmos.DrawRay(origin, rightDirection * currentViewDistance);
 
-        // Límite izquierdo
         Quaternion leftRotation = Quaternion.AngleAxis(-halfAngle, transform.up);
         Vector3 leftDirection = leftRotation * transform.forward;
         Gizmos.DrawRay(origin, leftDirection * currentViewDistance);
 
-        // 5. Dibujar un arco de conexión (la "tapa" del cono)
         Vector3 rightPoint = origin + rightDirection * currentViewDistance;
         Vector3 leftPoint = origin + leftDirection * currentViewDistance;
         Gizmos.DrawLine(rightPoint, leftPoint);
 
-        // Opcional: Dibujar una esfera en el punto de origen
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(origin, 0.1f);
     }
 
-    // ---------------- COLISIONES ----------------
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         if (hit.gameObject == player)
@@ -280,10 +323,8 @@ public class WanderingAI : MonoBehaviour
         }
     }
 
-    // ---------------- PATRULLA ENTRE WAYPOINTS ----------------
     void Patrol()
     {
-        // ... (Tu lógica de Waypoints) ...
         if (waypoints == null || waypoints.Length == 0)
             return;
 
@@ -318,13 +359,11 @@ public class WanderingAI : MonoBehaviour
             );
         }
 
-        // ⭐ APLICAR LÓGICA DE VELOCIDAD: speed * slowFactor
-        currentMovementSpeed = speed; // Guardamos la velocidad base para el Animator
+        currentMovementSpeed = speed;
         Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
         controller.Move(move);
     }
 
-    // ---------------- PERSECUCIÓN ----------------
     void ChasePlayer()
     {
         if (player == null) return;
@@ -340,14 +379,13 @@ public class WanderingAI : MonoBehaviour
                 Time.deltaTime * 5.0f
             );
 
-            // ⭐ APLICAR LÓGICA DE VELOCIDAD: chaseSpeed * slowFactor
-            currentMovementSpeed = chaseSpeed; // Guardamos la velocidad base para el Animator
+            currentMovementSpeed = chaseSpeed;
             Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
             controller.Move(move);
         }
         else
         {
-            currentMovementSpeed = 0f; // Quietos cerca del jugador
+            currentMovementSpeed = 0f;
         }
     }
 }
