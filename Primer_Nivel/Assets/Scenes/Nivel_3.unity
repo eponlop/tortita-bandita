@@ -413,10 +413,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI
       objectReference: {fileID: 0}
+    - target: {fileID: 3580216773874715460, guid: c73d0883a0129dd4e91f92c211ca1aeb, type: 3}
+      propertyPath: m_text
+      value: "Tu ultima habilidad,  genera charcos \nde sirope con la [Q] que relentizaran\na
+        todo aquello que lo pise (tu tambi\xE9n)"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6837434947778715368, guid: c73d0883a0129dd4e91f92c211ca1aeb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1159040900}
   m_SourcePrefab: {fileID: 100100000, guid: c73d0883a0129dd4e91f92c211ca1aeb, type: 3}
 --- !u!1001 &27570516
 PrefabInstance:
@@ -14971,6 +14979,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8000825603411839069, guid: d0a7e34fd2aea2c41a6dce04ef3e75c3, type: 3}
   m_PrefabInstance: {fileID: 939381975}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &940450318 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3720753214494887338, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+  m_PrefabInstance: {fileID: 1054719666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &940450322
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940450318}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee3562ef0747c524b92b132f5b1fbc76, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &946521627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17356,6 +17391,74 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5251007055203488168, guid: 2ce38d3444244e24bb0b1a33319c5c2e, type: 3}
   m_PrefabInstance: {fileID: 1050410060}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1054719666
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4585644783530098054, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_Radius
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 71.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.0000005
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -46.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5567203026374366636, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6296701255037490806, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: m_Name
+      value: TutoMark
+      objectReference: {fileID: 0}
+    - target: {fileID: 6672249121559593587, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      propertyPath: infoPanel
+      value: 
+      objectReference: {fileID: 1159040896}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3720753214494887338, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 940450322}
+  m_SourcePrefab: {fileID: 100100000, guid: 3ccdbde514dd1174cbd0e50e30cb2f05, type: 3}
 --- !u!1001 &1060280721
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18799,6 +18902,33 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6063697609293818051, guid: 6c0c81fab0876a54aa21afeed44df685, type: 3}
   m_PrefabInstance: {fileID: 1156911182}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1159040896 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6837434947778715368, guid: c73d0883a0129dd4e91f92c211ca1aeb, type: 3}
+  m_PrefabInstance: {fileID: 26457741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1159040900
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1159040896}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d1bbe0efa73876c438ad0f9da873e054, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1164632313
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35343,3 +35473,4 @@ SceneRoots:
   - {fileID: 717630398}
   - {fileID: 889165769}
   - {fileID: 26457741}
+  - {fileID: 1054719666}
