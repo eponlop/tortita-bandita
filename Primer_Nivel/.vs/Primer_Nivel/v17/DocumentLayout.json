@@ -32,7 +32,7 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\WanderingAI.cs",
               "ToolTip": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs",
               "RelativeToolTip": "Assets\\Scripts\\WanderingAI.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAwwIYBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAOgCAAAAAAAAAAAYwAwDAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-04T19:41:05.58Z",
               "EditorCaption": ""
@@ -47,8 +47,7 @@
               "RelativeToolTip": "Assets\\Scripts\\Sirope.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAjAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T19:39:58.763Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T19:39:58.763Z"
             },
             {
               "$type": "Document",
@@ -60,8 +59,7 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerController.cs",
               "ViewState": "AgIAAJkAAAAAAAAAAAAQwLEBAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-04T08:02:07.049Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-04T08:02:07.049Z"
             }
           ]
         }

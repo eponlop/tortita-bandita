@@ -788,6 +788,9 @@ MonoBehaviour:
   - {fileID: 1100087572}
   - {fileID: 947607271}
   - {fileID: 799014036}
+  footstepsAudioSource: {fileID: 0}
+  stickyAudioSource: {fileID: 0}
+  targetPitch: 0.5
   fovRenderer: {fileID: 0}
   segments: 10
 --- !u!143 &92095110
@@ -823,7 +826,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 92095107}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3233,6 +3236,9 @@ MonoBehaviour:
   - {fileID: 1906822021}
   - {fileID: 947607271}
   - {fileID: 799014036}
+  footstepsAudioSource: {fileID: 0}
+  stickyAudioSource: {fileID: 0}
+  targetPitch: 0.5
   fovRenderer: {fileID: 0}
   segments: 10
 --- !u!143 &410272031
@@ -3268,7 +3274,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410272028}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -12044,6 +12050,9 @@ MonoBehaviour:
   - {fileID: 1855010518}
   - {fileID: 404319904}
   - {fileID: 1846801861}
+  footstepsAudioSource: {fileID: 0}
+  stickyAudioSource: {fileID: 0}
+  targetPitch: 0.5
   fovRenderer: {fileID: 0}
   segments: 10
 --- !u!143 &1332792417
@@ -12079,7 +12088,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1332792414}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
