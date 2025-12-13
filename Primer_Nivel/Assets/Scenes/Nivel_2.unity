@@ -781,6 +781,9 @@ MonoBehaviour:
   viewAngle: 90
   viewDistance: 30
   eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 673878993}
   - {fileID: 1250172929}
@@ -791,7 +794,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 92095111}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &92095110
 CharacterController:
@@ -3229,6 +3233,9 @@ MonoBehaviour:
   viewAngle: 90
   viewDistance: 30
   eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 556265872}
   - {fileID: 2027013613}
@@ -3239,7 +3246,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 410272032}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &410272031
 CharacterController:
@@ -12120,6 +12128,9 @@ MonoBehaviour:
   viewAngle: 90
   viewDistance: 30
   eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 1889802498}
   - {fileID: 1855010518}
@@ -12128,7 +12139,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 1332792418}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &1332792417
 CharacterController:

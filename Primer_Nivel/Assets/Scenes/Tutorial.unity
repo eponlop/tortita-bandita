@@ -3476,13 +3476,17 @@ MonoBehaviour:
   viewAngle: 80
   viewDistance: 30
   eyeHeight: 3.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 1469707877}
   - {fileID: 91261094}
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.1
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 1194708136}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &1194708133
 CharacterController:
