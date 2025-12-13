@@ -1,781 +1,494 @@
 ﻿using UnityEngine;
-
 using UnityEngine.SceneManagement;
-
 using System.Collections;
-
-
+using System.Collections.Generic; // ¡Necesario para las listas de puntos!
 
 [RequireComponent(typeof(CharacterController))]
-
 public class WanderingAI : MonoBehaviour
-
 {
+    // --- NUEVAS ESTRUCTURAS DE DATOS ---
+    // Usadas por la lógica de trazado de visión
+    public struct ViewCastInfo
+    {
+        public bool hit;
+        public Vector3 point;
+        public float dst;
+        public float angle;
+    }
 
+    public struct EdgeInfo
+    {
+        public Vector3 pointA;
+        public Vector3 pointB;
+    }
+
+    // --- VARIABLES ORIGINALES ---
     [Header("Movimiento")]
-
     public float speed = 3.0f;
-
     public float rotationSpeed = 5.0f;
-
     public float reachDistance = 0.5f;
-
     public float chaseSpeed = 6.0f;
-
-
 
     private float currentMovementSpeed;
 
-
-
     [Header("Efectos de Estado")]
-
     private float slowFactor = 1f;
-
     private bool isSlowed = false;
 
-
-
     [Header("Detección")]
-
     public float viewAngle = 180f;
-
     public float viewDistance = 60f;
-
     public float eyeHeight = 1.5f;
-
-
+    public LayerMask obstacleMask; // Máscara de capa para las paredes
 
     [Header("Waypoints")]
-
     public Transform[] waypoints;
 
-
-
     [Header("Audio")]
-
     public AudioSource footstepsAudioSource;
-
     public AudioSource stickyAudioSource;
-
     public float targetPitch = 0.5f;
 
-
-
     private GameObject player;
-
     private int currentWaypoint = 0;
-
     private int dirSign = 1;
-
     private CharacterController controller;
 
-
-
     private bool chasing = false;
-
     private bool patrolling = false;
-
-
 
     private Animator animator;
 
-
-
     [Header("Visualización Runtime")]
-
     public LineRenderer fovRenderer;
-
+    [Range(1, 100)]
+    public int raysPerDegree = 1; // Precisión del contorno
     public int segments = 10;
 
-
-
     void Start()
-
     {
-
         controller = GetComponent<CharacterController>();
 
-
-
         player = GameObject.FindWithTag("Player");
-
         animator = GetComponent<Animator>();
 
-
-
         if (fovRenderer == null)
-
         {
-
             fovRenderer = GetComponent<LineRenderer>();
-
         }
-
-
 
         chasing = false;
-
         patrolling = true;
-
         isSlowed = false;
-
         slowFactor = 1f;
-
-
 
         // 1. Configuración Inicial del Audio:
-
-        // Aseguramos que AMBOS estén configurados para LOOP.
-
         if (footstepsAudioSource != null)
-
         {
-
             footstepsAudioSource.pitch = 1.5f;
-
             footstepsAudioSource.loop = true;
-
-            footstepsAudioSource.Stop(); // Detenemos ambos para que solo ManageFootstepAudio los inicie.
-
+            footstepsAudioSource.Stop();
         }
-
         if (stickyAudioSource != null)
-
         {
-
             stickyAudioSource.loop = true;
-
             stickyAudioSource.Stop();
-
         }
-
-
-
-        // 2. Iniciamos el Audio de Footsteps (solo si el enemigo se mueve al inicio)
-
-        // La reproducción real se maneja en ManageFootstepAudio()
-
-
 
         if (animator != null)
-
         {
-
             animator.SetBool("isChasing", false);
-
             animator.SetBool("isPatrolling", true);
-
             animator.Play("patrolling", 0, 0f);
-
         }
-
     }
-
-
 
     void Update()
-
     {
-
         bool playerDetected = CheckForPlayerFOV();
 
-
-
         if (playerDetected)
-
         {
-
             chasing = true;
-
             patrolling = false;
-
         }
-
         else
-
         {
-
             chasing = false;
-
             patrolling = true;
-
         }
-
-
 
         if (animator != null)
-
         {
-
             if (chasing)
-
             {
-
                 ChasePlayer();
-
             }
-
             else
-
             {
-
                 Patrol();
-
             }
-
             animator.SetBool("isChasing", chasing);
-
             animator.SetBool("isPatrolling", patrolling);
-
         }
-
         else
-
         {
-
             if (chasing)
-
                 ChasePlayer();
-
             else
-
                 Patrol();
-
         }
-
-
 
         // Controlamos qué audioSource debe estar sonando y si debe estar en pausa.
-
         ManageFootstepAudio();
 
-
-
-        DrawFOVRuntime();
-
+        GenerateViewPoints();
     }
-
-
 
     public void ApplySlow(float factor)
-
     {
-
         if (isSlowed) return;
 
-
-
         slowFactor = factor;
-
         isSlowed = true;
 
-
-
-        // CAMBIO DE AUDIO SOURCE: Detiene Footsteps, Inicia Sticky
-
         if (footstepsAudioSource != null)
-
         {
-
             footstepsAudioSource.Stop();
-
         }
-
         if (stickyAudioSource != null)
-
         {
-
             stickyAudioSource.pitch = targetPitch;
-
-            // No usamos .Play() aquí, ya que ManageFootstepAudio lo controlará
-
         }
-
     }
-
-
 
     public void RemoveSlow()
-
     {
-
         if (!isSlowed) return;
 
-
-
         slowFactor = 1f;
-
         isSlowed = false;
 
-
-
-        // CAMBIO DE AUDIO SOURCE: Detiene Sticky, Inicia Footsteps
-
         if (stickyAudioSource != null)
-
         {
-
             stickyAudioSource.Stop();
-
         }
-
         if (footstepsAudioSource != null)
-
         {
-
             footstepsAudioSource.pitch = 1.5f;
-
-            // No usamos .Play() aquí, ya que ManageFootstepAudio lo controlará
-
         }
-
     }
-
-
 
     private void ManageFootstepAudio()
-
     {
-
-        // La velocidad de movimiento es la velocidad de movimiento real aplicada.
-
         bool isMoving = currentMovementSpeed * slowFactor > 0.01f;
-
-
-
-        // El AudioSource que DEBE estar activo
-
         AudioSource sourceToPlay = isSlowed ? stickyAudioSource : footstepsAudioSource;
-
-
-
-        // El AudioSource que DEBE estar detenido
-
         AudioSource sourceToStop = isSlowed ? footstepsAudioSource : stickyAudioSource;
 
-
-
-        // 1. Detenemos el AudioSource INACTIVO
-
         if (sourceToStop != null && sourceToStop.isPlaying)
-
         {
-
             sourceToStop.Stop();
-
         }
-
-
-
-        // 2. Controlamos la reproducción del AudioSource ACTIVO
 
         if (sourceToPlay != null)
-
         {
-
             if (isMoving)
-
             {
-
-                // Si se mueve, aseguramos que se esté reproduciendo o se reanude
-
                 if (!sourceToPlay.isPlaying)
-
                 {
-
                     sourceToPlay.UnPause();
-
                     if (!sourceToPlay.isPlaying) sourceToPlay.Play();
-
                 }
-
             }
-
             else
-
             {
-
-                // Si está quieto, pausamos el audio
-
                 if (sourceToPlay.isPlaying)
-
                 {
-
                     sourceToPlay.Pause();
-
                 }
-
             }
-
         }
-
     }
-
-
 
     bool CheckForPlayerFOV()
-
     {
-
         if (player == null) return false;
 
-
-
         Vector3 directionToPlayer = player.transform.position - transform.position;
-
         float distanceToPlayer = directionToPlayer.magnitude;
 
-
-
         if (distanceToPlayer > viewDistance)
-
         {
-
             return false;
-
         }
-
-
 
         Vector3 directionNormalized = directionToPlayer.normalized;
-
         float dotProduct = Vector3.Dot(transform.forward, directionNormalized);
-
         float cosineThreshold = Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
 
-
-
         if (dotProduct > cosineThreshold)
-
         {
-
             Vector3 rayStartPoint = transform.position + Vector3.up * eyeHeight;
 
-
-
             RaycastHit hit;
-
-            if (Physics.Raycast(rayStartPoint, directionNormalized, out hit, distanceToPlayer))
-
+            // Raycast usa la máscara de colisión para la detección real, no solo la visual
+            if (Physics.Raycast(rayStartPoint, directionNormalized, out hit, distanceToPlayer, obstacleMask))
             {
-
                 if (hit.collider.gameObject == player)
-
                 {
-
                     return true;
-
                 }
-
             }
-
         }
-
-
 
         return false;
-
     }
 
+    // -------------------------------------------------------------------
+    // --- LÓGICA DE DIBUJO AVANZADA (CORREGIDA LA ORIENTACIÓN Y EL CIERRE) ---
+    // -------------------------------------------------------------------
 
-
-    void DrawFOVRuntime()
-
+    void GenerateViewPoints()
     {
-
         if (fovRenderer == null) return;
 
-
-
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
 
-        int pointCount = segments + 3;
+        List<Vector3> viewPoints = new List<Vector3>();
 
+        float totalRays = viewAngle * raysPerDegree;
+        float stepAngleSize = viewAngle / totalRays;
+        // El ángulo de inicio ahora es relativo al forward del enemigo (0 grados es transform.forward)
+        float startAngle = -viewAngle / 2;
 
+        ViewCastInfo oldViewCast = new ViewCastInfo();
 
-        fovRenderer.positionCount = pointCount;
-
-        Vector3[] points = new Vector3[pointCount];
-
-        points[0] = origin;
-
-
-
-        float angleStep = viewAngle / segments;
-
-
-
-        for (int i = 0; i <= segments; i++)
-
+        for (int i = 0; i <= totalRays; i++)
         {
+            float currentAngle = startAngle + stepAngleSize * i;
+            ViewCastInfo newViewCast = ViewCast(currentAngle);
 
-            float currentAngle = -viewAngle / 2 + angleStep * i;
+            bool hitEdge = oldViewCast.hit != newViewCast.hit;
 
+            if (i > 0 && hitEdge)
+            {
+                EdgeInfo edge = FindEdge(oldViewCast, newViewCast);
 
+                if (oldViewCast.hit)
+                {
+                    viewPoints.Add(edge.pointA);
+                }
+                else
+                {
+                    viewPoints.Add(edge.pointB);
+                }
+            }
 
-            Quaternion rotation = Quaternion.AngleAxis(currentAngle, transform.up);
-
-            Vector3 direction = rotation * transform.forward;
-
-
-
-            Vector3 pointOnArc = origin + direction * viewDistance;
-
-
-
-            points[i + 1] = pointOnArc;
-
+            viewPoints.Add(newViewCast.point);
+            oldViewCast = newViewCast;
         }
 
+        // 1. Insertamos el origen al inicio. El Line Renderer irá del origen al primer punto.
+        viewPoints.Insert(0, origin);
 
+        // 2. CORRECCIÓN DEL CIERRE: La última línea debe ir del último punto visible
+        //    de vuelta al origen (viewPoints[0]). Como el Line Renderer dibuja
+        //    los puntos en orden, si insertamos el origen al inicio, la última línea 
+        //    debe ser del último punto al origen. Para lograr esto, añadimos el origen
+        //    al final de la lista.
+        viewPoints.Add(origin);
 
-        points[segments + 2] = origin;
-
-
-
-        fovRenderer.SetPositions(points);
-
-
+        fovRenderer.positionCount = viewPoints.Count;
+        fovRenderer.SetPositions(viewPoints.ToArray());
 
         if (fovRenderer.material != null)
-
         {
-
             fovRenderer.material.color = chasing ? Color.red : Color.yellow;
-
         }
-
     }
 
+    // Función auxiliar: Lanza un Raycast y retorna la información
+    ViewCastInfo ViewCast(float angleInDegrees) // Recibe el ángulo relativo
+    {
+        Vector3 dir = DirFromAngle(angleInDegrees); // Usa la función de rotación (Quaternion)
+        Vector3 rayStart = transform.position + Vector3.up * eyeHeight;
+        RaycastHit hit;
 
+        if (Physics.Raycast(rayStart, dir, out hit, viewDistance, obstacleMask))
+        {
+            return new ViewCastInfo
+            {
+                hit = true,
+                point = hit.point,
+                dst = hit.distance,
+                angle = angleInDegrees // Usamos el ángulo relativo
+            };
+        }
+        else
+        {
+            return new ViewCastInfo
+            {
+                hit = false,
+                point = rayStart + dir * viewDistance,
+                dst = viewDistance,
+                angle = angleInDegrees // Usamos el ángulo relativo
+            };
+        }
+    }
+
+    // Función auxiliar: Encuentra el punto exacto del borde
+    EdgeInfo FindEdge(ViewCastInfo minViewCast, ViewCastInfo maxViewCast)
+    {
+        float minAngle = minViewCast.angle;
+        float maxAngle = maxViewCast.angle;
+        Vector3 minPoint = minViewCast.point;
+        Vector3 maxPoint = maxViewCast.point;
+
+        for (int i = 0; i < 10; i++) // Búsqueda binaria para precisión de borde
+        {
+            float angle = (minAngle + maxAngle) / 2;
+            ViewCastInfo newViewCast = ViewCast(angle);
+
+            if (newViewCast.hit == minViewCast.hit)
+            {
+                minAngle = angle;
+                minPoint = newViewCast.point;
+            }
+            else
+            {
+                maxAngle = angle;
+                maxPoint = newViewCast.point;
+            }
+        }
+        return new EdgeInfo { pointA = minPoint, pointB = maxPoint };
+    }
+
+    // Función auxiliar: Calcula la dirección del rayo utilizando Quaternion (CORRECCIÓN DE ORIENTACIÓN)
+    Vector3 DirFromAngle(float angleInDegrees)
+    {
+        // 1. Crea una rotación relativa alrededor del eje Y del enemigo (transform.up).
+        Quaternion rotation = Quaternion.AngleAxis(angleInDegrees, transform.up);
+
+        // 2. Multiplica la dirección 'hacia adelante' del enemigo por esta rotación.
+        return rotation * transform.forward;
+    }
+
+    // -------------------------------------------------------------------
+    // --- FUNCIONES ORIGINALES RESTANTES ---
+    // -------------------------------------------------------------------
 
     private void OnDrawGizmos()
-
     {
-
         if (transform == null)
-
             return;
 
-
-
         Vector3 origin = transform.position + Vector3.up * eyeHeight;
-
-
 
         Gizmos.color = chasing ? Color.red : Color.yellow;
 
-
-
         float currentViewDistance = viewDistance;
-
         float currentViewAngle = viewAngle;
-
-
 
         Gizmos.DrawRay(origin, transform.forward * currentViewDistance);
 
-
-
         float halfAngle = currentViewAngle * 0.5f;
 
-
-
         Quaternion rightRotation = Quaternion.AngleAxis(halfAngle, transform.up);
-
         Vector3 rightDirection = rightRotation * transform.forward;
-
         Gizmos.DrawRay(origin, rightDirection * currentViewDistance);
 
-
-
         Quaternion leftRotation = Quaternion.AngleAxis(-halfAngle, transform.up);
-
         Vector3 leftDirection = leftRotation * transform.forward;
-
         Gizmos.DrawRay(origin, leftDirection * currentViewDistance);
 
-
-
         Vector3 rightPoint = origin + rightDirection * currentViewDistance;
-
         Vector3 leftPoint = origin + leftDirection * currentViewDistance;
-
         Gizmos.DrawLine(rightPoint, leftPoint);
 
-
-
         Gizmos.color = Color.blue;
-
         Gizmos.DrawWireSphere(origin, 0.1f);
-
     }
-
-
 
     void OnControllerColliderHit(ControllerColliderHit hit)
-
     {
-
         if (hit.gameObject == player)
-
         {
-
             Debug.Log("¡El enemigo atrapó al jugador!");
-
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
         }
-
     }
-
-
 
     void OnTriggerEnter(Collider other)
-
     {
-
         if (other.gameObject == player)
-
         {
-
             Debug.Log("¡El jugador entró en el rango del enemigo!");
-
         }
-
     }
 
-
-
     void Patrol()
-
     {
-
         if (waypoints == null || waypoints.Length == 0)
-
             return;
 
-
-
         Vector3 targetPos = waypoints[currentWaypoint].position;
-
         Vector3 dirToTarget = targetPos - transform.position;
-
         dirToTarget.y = 0f;
-
-
 
         float distance = dirToTarget.magnitude;
 
-
-
         if (distance < reachDistance)
-
         {
-
             currentWaypoint += dirSign;
-
             if (currentWaypoint >= waypoints.Length)
-
             {
-
                 currentWaypoint = waypoints.Length - 2;
-
                 dirSign = -1;
-
             }
-
             else if (currentWaypoint < 0)
-
             {
-
                 currentWaypoint = 1;
-
                 dirSign = 1;
-
             }
-
         }
-
-
 
         if (dirToTarget.sqrMagnitude > 0.01f)
-
         {
-
             Quaternion targetRotation = Quaternion.LookRotation(dirToTarget);
-
             transform.rotation = Quaternion.RotateTowards(
-
                 transform.rotation,
-
                 targetRotation,
-
                 rotationSpeed * Time.deltaTime * 100f
-
             );
-
         }
-
-
 
         currentMovementSpeed = speed;
-
         Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
-
         controller.Move(move);
-
     }
-
-
 
     void ChasePlayer()
-
     {
-
         if (player == null) return;
 
-
-
         Vector3 direction = player.transform.position - transform.position;
-
         direction.y = 0;
 
-
-
         if (direction.magnitude > 1.0f)
-
         {
-
             transform.rotation = Quaternion.Slerp(
-
                 transform.rotation,
-
                 Quaternion.LookRotation(direction),
-
                 Time.deltaTime * 5.0f
-
             );
 
-
-
             currentMovementSpeed = chaseSpeed;
-
             Vector3 move = transform.forward * currentMovementSpeed * slowFactor * Time.deltaTime;
-
             controller.Move(move);
-
         }
-
         else
-
         {
-
             currentMovementSpeed = 0f;
-
         }
-
     }
-
 }

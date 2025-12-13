@@ -23,7 +23,7 @@ public class TutorialMarker : MonoBehaviour
         if (markerIcon != null)
         {
             // Ajusta el movimiento para que parezca que está flotando
-            markerIcon.GetComponent<Animator>()?.Play("Flotar");
+            //markerIcon.GetComponent<Animator>()?.Play("Flotar");
         }
     }
 

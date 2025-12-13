@@ -1291,9 +1291,12 @@ MonoBehaviour:
   rotationSpeed: 2
   reachDistance: 0.5
   chaseSpeed: 10
-  viewAngle: 90
-  viewDistance: 30
+  viewAngle: 75
+  viewDistance: 20
   eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 728976636}
   - {fileID: 1259994018}
@@ -1301,7 +1304,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 107239891}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &107239888
 CharacterController:
@@ -1336,7 +1340,7 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107239886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4207,9 +4211,12 @@ MonoBehaviour:
   rotationSpeed: 2
   reachDistance: 0.5
   chaseSpeed: 10
-  viewAngle: 90
-  viewDistance: 30
+  viewAngle: 75
+  viewDistance: 20
   eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 423129714}
   - {fileID: 1413303671}
@@ -4217,7 +4224,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 457903401}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &457903398
 CharacterController:
@@ -17298,12 +17306,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  rotationSpeed: 2
+  rotationSpeed: 2.5
   reachDistance: 0.5
   chaseSpeed: 10
-  viewAngle: 90
-  viewDistance: 30
-  eyeHeight: 4.5
+  viewAngle: 75
+  viewDistance: 20
+  eyeHeight: 1.5
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 1
   waypoints:
   - {fileID: 910906130}
   - {fileID: 904294053}
@@ -17312,7 +17323,8 @@ MonoBehaviour:
   footstepsAudioSource: {fileID: 0}
   stickyAudioSource: {fileID: 0}
   targetPitch: 0.5
-  fovRenderer: {fileID: 0}
+  fovRenderer: {fileID: 2108417279}
+  raysPerDegree: 1
   segments: 10
 --- !u!143 &2108417276
 CharacterController:
@@ -17347,8 +17359,8 @@ LineRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108417272}
-  m_Enabled: 0
-  m_CastShadows: 1
+  m_Enabled: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

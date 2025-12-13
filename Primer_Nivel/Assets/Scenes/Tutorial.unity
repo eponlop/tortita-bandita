@@ -3470,10 +3470,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 12
-  rotationSpeed: 2
+  rotationSpeed: 3
   reachDistance: 0.5
   chaseSpeed: 15
-  viewAngle: 90
+  viewAngle: 80
   viewDistance: 30
   eyeHeight: 3.5
   waypoints:
@@ -5643,6 +5643,18 @@ PrefabInstance:
     - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
       propertyPath: speed
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
+      propertyPath: viewAngle
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
+      propertyPath: viewDistance
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
+      propertyPath: rotationSpeed
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 3706300960042151125, guid: 0405e32505d58cf41a140ad88716d9c3, type: 3}
       propertyPath: stickyAudioSource
