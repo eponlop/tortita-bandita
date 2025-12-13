@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 8202c457dff32486ba5ae1f2f548d983, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -4502,7 +4502,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 8f9007a17c3ecd34d8df64f86745c329, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
+      objectReference: {fileID: 2100000, guid: 76feb4ab02a04004aba1cc4e457373b0, type: 2}
     - target: {fileID: 919132149155446097, guid: 8f9007a17c3ecd34d8df64f86745c329, type: 3}
       propertyPath: m_Name
       value: Furniture_02
@@ -9382,6 +9382,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4286315939294566608, guid: 91a93e25088232f418dd06d5916eae83, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 089a7dd15a05abf4ba0a804e77d545ee, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10269,7 +10273,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 4b794b6ae7f5ee74fa07f8325d11e9e9, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
+      objectReference: {fileID: 2100000, guid: 76feb4ab02a04004aba1cc4e457373b0, type: 2}
     - target: {fileID: 919132149155446097, guid: 4b794b6ae7f5ee74fa07f8325d11e9e9, type: 3}
       propertyPath: m_Name
       value: Barrel_01
@@ -11798,7 +11802,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a736403e8215c0644931533af77a47de, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
+      objectReference: {fileID: 2100000, guid: dbe719bc07bc42d41a78bd85ace74771, type: 2}
     - target: {fileID: 919132149155446097, guid: a736403e8215c0644931533af77a47de, type: 3}
       propertyPath: m_Name
       value: Box_01
@@ -17954,7 +17958,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 5bd5826050924dd409e479e212a4eeb4, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
+      objectReference: {fileID: 2100000, guid: 76feb4ab02a04004aba1cc4e457373b0, type: 2}
     - target: {fileID: 919132149155446097, guid: 5bd5826050924dd409e479e212a4eeb4, type: 3}
       propertyPath: m_Name
       value: Furniture_03

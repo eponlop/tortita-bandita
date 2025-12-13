@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: e2d0ee7ce34327546abb01c712389445
+AssetOrigin:
+  serializedVersion: 1
+  productId: 286938
+  packageName: Lowpoly Nature Bundle
+  packageVersion: 1.0
+  assetPath: Assets/LowpolyNatureBundle/Mesh/WoodenFence_03.fbx
+  uploadId: 673155
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +15,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Mushroom
-    second: {fileID: 2100000, guid: 2c13f8f798473374dae19379c179173d, type: 2}
+    second: {fileID: 2100000, guid: 260fc4fc815bdfa47ab5d2714b40af9b, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -21,8 +28,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -112,10 +117,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 286938
-  packageName: Lowpoly Nature Bundle
-  packageVersion: 1.0
-  assetPath: Assets/LowpolyNatureBundle/Mesh/WoodenFence_03.fbx
-  uploadId: 673155
