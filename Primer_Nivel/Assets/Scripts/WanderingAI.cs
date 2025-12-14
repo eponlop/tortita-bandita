@@ -123,6 +123,15 @@ public class WanderingAI : MonoBehaviour
             if (chasing)
             {
                 ChasePlayer();
+
+                //cambia el color del line render a rojo
+                // COMPLETAR AQUI
+
+                Debug.Log("intento cambiar color");
+                if (chasing)
+                {
+                    fovRenderer.material.color = Color.red;
+                }
             }
             else
             {
@@ -214,33 +223,61 @@ public class WanderingAI : MonoBehaviour
     {
         if (player == null) return false;
 
-        Vector3 directionToPlayer = player.transform.position - transform.position;
-        float distanceToPlayer = directionToPlayer.magnitude;
+        Vector3 enemyEyePos = transform.position + Vector3.up * eyeHeight;
 
-        if (distanceToPlayer > viewDistance)
+        // Definimos los puntos de destino en el jugador para la detección.
+        // Asumimos que el punto de pivote del jugador está en la parte inferior.
+        // 0.2f es cerca de los pies, y 1.7f es cerca de la cabeza (ajusta estos valores)
+        Vector3[] targetPoints = new Vector3[]
         {
-            return false;
-        }
+            player.transform.position + Vector3.up * 0.2f, // Pies/cuerpo bajo
+            player.transform.position + Vector3.up * 1.0f, // Centro del cuerpo
+            player.transform.position + Vector3.up * 4f  // Cabeza
+        };
 
-        Vector3 directionNormalized = directionToPlayer.normalized;
-        float dotProduct = Vector3.Dot(transform.forward, directionNormalized);
-        float cosineThreshold = Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
-
-        if (dotProduct > cosineThreshold)
+        foreach (Vector3 targetPos in targetPoints)
         {
-            Vector3 rayStartPoint = transform.position + Vector3.up * eyeHeight;
+            Vector3 directionToTarget = targetPos - enemyEyePos;
+            float distanceToTarget = directionToTarget.magnitude;
 
-            RaycastHit hit;
-            // Raycast usa la máscara de colisión para la detección real, no solo la visual
-            if (Physics.Raycast(rayStartPoint, directionNormalized, out hit, distanceToPlayer, obstacleMask))
+            if (distanceToTarget > viewDistance)
             {
+                // El punto de destino está fuera de la distancia de visión, saltar al siguiente punto.
+                continue;
+            }
+
+            Vector3 directionNormalized = directionToTarget.normalized;
+
+            // 1. Comprobación del ángulo Horizontal (Cualquier ángulo fuera del cono se ignora)
+            // Para la detección FOV, solo necesitamos comprobar el ángulo en el plano XZ (horizontal).
+            // Creamos una proyección plana de la dirección al objetivo y del forward del enemigo.
+            Vector3 enemyForwardFlat = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+            Vector3 dirToTargetFlat = Vector3.ProjectOnPlane(directionToTarget, Vector3.up).normalized;
+
+            float dotProductFlat = Vector3.Dot(enemyForwardFlat, dirToTargetFlat);
+            float cosineThreshold = Mathf.Cos(viewAngle * 0.5f * Mathf.Deg2Rad);
+
+            // Si el jugador está fuera del cono horizontal, no lo detectamos.
+            if (dotProductFlat < cosineThreshold)
+            {
+                continue; // El jugador está fuera del ángulo horizontal
+            }
+
+            // 2. Comprobación de Oclusión (Raycast)
+            RaycastHit hit;
+            if (Physics.Raycast(enemyEyePos, directionNormalized, out hit, distanceToTarget, obstacleMask))
+            {
+                // Si el rayo golpea algo, comprobamos si ese algo es el jugador.
+                // Usamos hit.collider.gameObject.CompareTag("Player") para una comprobación más robusta.
                 if (hit.collider.gameObject == player)
                 {
+                    // ¡Detección exitosa!
                     return true;
                 }
             }
         }
 
+        // Si después de verificar todos los puntos, ninguno detecta al jugador:
         return false;
     }
 

@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
     public float turnedStaminaDrain = 10f;
     public float recoveryDelay = 2f;
     public float recoveryTimer = 0f;
-    public float staminaRecovery = 7f;
-    public float staminaRecoveryStill = 15f;
+    public float staminaRecovery = 15f;
+    public float staminaRecoveryStill = 25f;
     public bool isTired = false;
 
     [Header("Character Controller")]

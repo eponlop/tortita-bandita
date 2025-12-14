@@ -26,27 +26,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 50.296776
+      value: 42.122982
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.31520453
+      value: 0.7880113
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6536522
+      value: 0.9208968
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8660257
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.4999996
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalRotation.z
@@ -58,7 +58,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9e79408fc5f6ec04caa4ce46f3d5baa9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifetime: 10
-  allySlowFactor: 0.5
-  enemySlowFactor: 0.01
+  allySlowFactor: 0.65
+  enemySlowFactor: 0.000001
   enemyTag: Enemy
   allyTag: Player
