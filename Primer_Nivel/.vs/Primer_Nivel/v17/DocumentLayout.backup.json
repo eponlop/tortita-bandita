@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Shaders\\Lit.shader||{3B902123-F8A7-4915-9F01-361F908088D0}"
     },
@@ -23,6 +27,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "AdditionalLightsShadowCasterPass.cs",
+              "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs",
+              "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs",
+              "ToolTip": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs",
+              "RelativeToolTip": "Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Runtime\\Passes\\AdditionalLightsShadowCasterPass.cs",
+              "ViewState": "AgIAAH8BAAAAAAAAAAAmwKsBAABXAQAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-14T13:05:12.547Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Lit.shader",
               "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Shaders\\Lit.shader",
               "RelativeDocumentMoniker": "Library\\PackageCache\\com.unity.render-pipelines.universal@056626336c36\\Shaders\\Lit.shader",
@@ -35,7 +52,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "OpcionesManager.cs",
               "DocumentMoniker": "C:\\Users\\34744\\OneDrive\\Desktop\\Documentos\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\OpcionesManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\OpcionesManager.cs",
@@ -43,8 +60,7 @@
               "RelativeToolTip": "Assets\\Scripts\\OpcionesManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-10T18:14:45.513Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-10T18:14:45.513Z"
             }
           ]
         }
