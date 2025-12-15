@@ -59,6 +59,9 @@ public class WanderingAI : MonoBehaviour
 
     private Animator animator;
 
+    [Header("Referencias del Sistema")]
+    public MenuPillado gameManager; // ¡Arrastra el objeto GameManager aquí!
+
     [Header("Visualización Runtime")]
     public LineRenderer fovRenderer;
     [Range(1, 100)]
@@ -75,6 +78,15 @@ public class WanderingAI : MonoBehaviour
         if (fovRenderer == null)
         {
             fovRenderer = GetComponent<LineRenderer>();
+        }
+
+        if (gameManager == null)
+        {
+            gameManager = FindObjectOfType<MenuPillado>();
+            if (gameManager == null)
+            {
+                Debug.LogError("WanderingAI: No se encontró el MenuPillado (GameManager) en la escena.");
+            }
         }
 
         chasing = false;
@@ -451,7 +463,17 @@ public class WanderingAI : MonoBehaviour
         if (hit.gameObject == player)
         {
             Debug.Log("¡El enemigo atrapó al jugador!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+            if (gameManager != null)
+            {
+                // **CAMBIO CRÍTICO:** Llama al GameManager para manejar el fin del juego.
+                gameManager.OnEnemyCaughtPlayer();
+            }
+            else
+            {
+                // Si el GameManager es null, haz la recarga de emergencia.
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
         }
     }
 
