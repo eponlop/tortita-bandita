@@ -48,34 +48,16 @@ public class MenuPillado : MonoBehaviour
     {
         Debug.Log("Volviendo al menú principal...");
 
-        // Es vital reanudar el tiempo antes de la carga de escena
-        Time.timeScale = 1f;
 
-        if (!string.IsNullOrEmpty(nombreEscenaMenuPrincipal))
-        {
-            SceneManager.LoadScene(nombreEscenaMenuPrincipal);
-        }
-        else
-        {
-            Debug.LogError("El nombre de la escena del menú no está configurado.");
-        }
+        Debug.Log("GameManager: Abriendo Menu.");
+        SceneManager.LoadScene("EscenaMenu");
     }
 
-    // Método asignado al Botón "Continuar"
     public void ContinueGame()
     {
         Debug.Log("Juego reanudado. Recargando escena por índice.");
-
-        // 1. Obtener el índice de la escena que está cargada actualmente
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // 2. Reanudar el juego
         Time.timeScale = 1f;
-
-        // 3. Cargar la escena usando su índice (un 'int' en lugar de un 'string')
-        SceneManager.LoadScene(currentSceneIndex);
-
-
+        SceneManager.LoadScene("Tutorial");
     }
     // Update is called once per frame
     void Update()

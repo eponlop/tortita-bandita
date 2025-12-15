@@ -139,7 +139,7 @@ public class WanderingAI : MonoBehaviour
                 //cambia el color del line render a rojo
                 // COMPLETAR AQUI
 
-                Debug.Log("intento cambiar color");
+                
                 if (chasing)
                 {
                     fovRenderer.material.color = Color.red;
