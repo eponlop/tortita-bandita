@@ -7,6 +7,7 @@ public class PauseManager : MonoBehaviour
 {
     [Header("UI")]
     public GameObject pauseMenuUI;
+    public GameObject opcionesMenuUI;
 
     private bool isPaused = false;
     private Coroutine cursorFixCoroutine;
@@ -45,6 +46,8 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         if (pauseMenuUI != null) pauseMenuUI.SetActive(false);
+
+        opcionesMenuUI.SetActive(false);
 
         if (cursorFixCoroutine != null) StopCoroutine(cursorFixCoroutine);
         cursorFixCoroutine = StartCoroutine(FixCursorNextFrame());
