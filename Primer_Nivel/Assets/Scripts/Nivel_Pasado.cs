@@ -19,6 +19,7 @@ public class Nivel_Pasado : MonoBehaviour
         {
             panelDeOpciones.SetActive(false);
         }
+        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -33,6 +34,8 @@ public class Nivel_Pasado : MonoBehaviour
             {
                 panelDeOpciones.SetActive(true);
             }
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 
