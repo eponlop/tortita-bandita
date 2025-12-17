@@ -71,8 +71,8 @@ public class MenuPillado : MonoBehaviour
         // Restaurar tiempo
         Time.timeScale = 1f;
         // Ocultar/Bloquear cursor para volver al juego normal (lo haría Start() si recargas)
-        HideAndLockCursor();
-        SceneManager.LoadScene("Tutorial");
+            HideAndLockCursor();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame
