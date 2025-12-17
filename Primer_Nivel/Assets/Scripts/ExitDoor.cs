@@ -31,19 +31,11 @@ public class ExitDoor : MonoBehaviour
         {
             // 2. Ejecutar la lógica de victoria
             ActivarVictoria();
-
-            // 3. Avisar al sistema de coleccionables (si existe)
-            if (gameManagerCollectibles != null)
-            {
-                gameManagerCollectibles.ReachedExit();
-            }
         }
     }
 
     private void ActivarVictoria()
     {
-        if (panelVictoria != null)
-        {
             Debug.Log("¡Victoria! Mostrando panel.");
 
             // Mostrar el cartel de victoria
@@ -55,11 +47,6 @@ public class ExitDoor : MonoBehaviour
 
             // Detener el tiempo del juego
             Time.timeScale = 0f;
-        }
-        else
-        {
-            Debug.LogError("No has asignado el Panel de Victoria al script ExitDoor.");
-        }
     }
 
     // --- MÉTODOS PARA LOS BOTONES DEL PANEL DE VICTORIA ---

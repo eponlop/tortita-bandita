@@ -53,15 +53,4 @@ public class GameManagerCollectibles : MonoBehaviour
             // if(doorRenderer != null) doorRenderer.material.color = Color.green;
         }
     }
-
-    /// <summary>
-    /// Se llama cuando el jugador toca el objeto de la salida.
-    /// </summary>
-    public void ReachedExit()
-    {
-        Debug.Log("¡Nivel completado!");
-        // Aquí puedes cargar la siguiente escena o mostrar una pantalla de victoria
-        // Por ahora, reinicia la escena actual:
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
 }
