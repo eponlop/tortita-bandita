@@ -42,6 +42,7 @@ public class WanderingAI : MonoBehaviour
     public LayerMask obstacleMask; // Máscara de capa para las paredes
 
     [Header("Waypoints")]
+    public bool circularPatrol = false;
     public Transform[] waypoints;
 
     [Header("Audio")]
@@ -499,7 +500,12 @@ public class WanderingAI : MonoBehaviour
         if (distance < reachDistance)
         {
             currentWaypoint += dirSign;
-            if (currentWaypoint >= waypoints.Length)
+
+            if (circularPatrol)
+            {
+                currentWaypoint = currentWaypoint % waypoints.Length;
+            } 
+            else if (currentWaypoint >= waypoints.Length)
             {
                 currentWaypoint = waypoints.Length - 2;
                 dirSign = -1;
