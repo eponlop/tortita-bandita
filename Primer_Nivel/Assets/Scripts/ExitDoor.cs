@@ -22,6 +22,7 @@ public class ExitDoor : MonoBehaviour
         {
             panelVictoria.SetActive(false);
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +32,12 @@ public class ExitDoor : MonoBehaviour
         {
             // 2. Ejecutar la lógica de victoria
             ActivarVictoria();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+
+            // Detener el tiempo del juego
+            Time.timeScale = 0f;
         }
     }
 
@@ -38,15 +45,18 @@ public class ExitDoor : MonoBehaviour
     {
             Debug.Log("¡Victoria! Mostrando panel.");
 
-            // Mostrar el cartel de victoria
-            panelVictoria.SetActive(true);
 
-            // Hacer visible el cursor y liberarlo
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+        // Hacer visible el cursor y liberarlo
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
 
-            // Detener el tiempo del juego
-            Time.timeScale = 0f;
+
+        // Detener el tiempo del juego
+        Time.timeScale = 0f;
+
+
+        // Mostrar el cartel de victoria
+        panelVictoria.SetActive(true);
     }
 
     // --- MÉTODOS PARA LOS BOTONES DEL PANEL DE VICTORIA ---

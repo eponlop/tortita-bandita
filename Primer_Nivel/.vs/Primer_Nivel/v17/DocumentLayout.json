@@ -1,9 +1,25 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\",
+  "WorkspaceRootPath": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\ExitDoor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\ExitDoor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MenuPillado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\MenuPillado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\GameManagerCollectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\GameManagerCollectibles.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\WanderingAI.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Assets\\Scripts\\Nivel_Pasado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -14,15 +30,79 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 4,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GameManagerCollectibles.cs",
+              "DocumentMoniker": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\GameManagerCollectibles.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameManagerCollectibles.cs",
+              "ToolTip": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\GameManagerCollectibles.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameManagerCollectibles.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAAADYAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T21:20:51.747Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "ExitDoor.cs",
+              "DocumentMoniker": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\ExitDoor.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ExitDoor.cs",
+              "ToolTip": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\ExitDoor.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ExitDoor.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAACMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T17:57:37.058Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MenuPillado.cs",
+              "DocumentMoniker": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MenuPillado.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MenuPillado.cs",
+              "ToolTip": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\MenuPillado.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MenuPillado.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAACYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T17:47:41.518Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "WanderingAI.cs",
+              "DocumentMoniker": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\WanderingAI.cs",
+              "ToolTip": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\WanderingAI.cs",
+              "RelativeToolTip": "Assets\\Scripts\\WanderingAI.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-17T16:35:16.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "Nivel_Pasado.cs",
-              "DocumentMoniker": "C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs",
+              "DocumentMoniker": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Nivel_Pasado.cs",
-              "ToolTip": "C:\\Users\\esteb\\Documents\\GitHub\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs",
+              "ToolTip": "C:\\Users\\Multi\\Documents\\Uni\\4\u00BA\\D3D\\Proyectos\\tortita-bandita\\Primer_Nivel\\Assets\\Scripts\\Nivel_Pasado.cs",
               "RelativeToolTip": "Assets\\Scripts\\Nivel_Pasado.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAACUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
