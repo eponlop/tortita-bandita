@@ -15,7 +15,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Circle.001Mat
-    second: {fileID: 2100000, guid: 1623a99ebffd1364e873ea6eab83acd3, type: 2}
+    second: {fileID: 2100000, guid: d423952eecfb8c943bebd9cec9f160ae, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
