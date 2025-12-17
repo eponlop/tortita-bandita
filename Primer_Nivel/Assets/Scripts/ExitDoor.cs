@@ -1,31 +1,78 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necesario para cambiar de escena
 
 public class ExitDoor : MonoBehaviour
 {
-    private GameManagerCollectibles gameManager;
+    [Header("Referencias de la UI de Victoria")]
+    // Arrastra aquí el Panel que dice "¡Te has pasado el juego!"
+    public GameObject panelVictoria;
+
+    [Header("Configuración de Escenas")]
+    public string nombreEscenaMenu = "EscenaMenu";
+
+    private GameManagerCollectibles gameManagerCollectibles;
 
     void Start()
     {
-        // Intentar encontrar el GameManager al inicio
-        gameManager = FindObjectOfType<GameManagerCollectibles>();
-        if (gameManager == null)
-        {
-            Debug.LogError("ExitDoor requiere que haya un GameManagerCollectibles en la escena.");
-        }
+        // Buscamos el gestor de coleccionables si existe
+        gameManagerCollectibles = FindObjectOfType<GameManagerCollectibles>();
 
-        // Asegúrate de que este objeto tiene un Collider configurado como Trigger
+        // Aseguramos que el panel de victoria esté oculto al empezar
+        if (panelVictoria != null)
+        {
+            panelVictoria.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // Comprobamos si el objeto que colisionó es el jugador (usando la etiqueta "Player")
+        // 1. Detectar si es el jugador
         if (other.CompareTag("Player"))
         {
-            // La puerta solo debe funcionar si está activa (lo cual controla el GameManager)
-            if (gameObject.activeSelf && gameManager != null)
+            // 2. Ejecutar la lógica de victoria
+            ActivarVictoria();
+
+            // 3. Avisar al sistema de coleccionables (si existe)
+            if (gameManagerCollectibles != null)
             {
-                gameManager.ReachedExit();
+                gameManagerCollectibles.ReachedExit();
             }
         }
+    }
+
+    private void ActivarVictoria()
+    {
+        if (panelVictoria != null)
+        {
+            Debug.Log("¡Victoria! Mostrando panel.");
+
+            // Mostrar el cartel de victoria
+            panelVictoria.SetActive(true);
+
+            // Hacer visible el cursor y liberarlo
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            // Detener el tiempo del juego
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Debug.LogError("No has asignado el Panel de Victoria al script ExitDoor.");
+        }
+    }
+
+    // --- MÉTODOS PARA LOS BOTONES DEL PANEL DE VICTORIA ---
+
+    public void VolverAlMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(nombreEscenaMenu);
+    }
+
+    public void ReiniciarNivel()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
