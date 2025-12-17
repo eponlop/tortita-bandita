@@ -1,65 +1,68 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Necesario para cambiar de escena
+using UnityEngine.SceneManagement;
+using System.Collections; // Importante para la Corrutina
 
 public class ExitDoor : MonoBehaviour
 {
     [Header("Referencias de la UI de Victoria")]
-    // Arrastra aquí el Panel que dice "¡Te has pasado el juego!"
     public GameObject panelVictoria;
 
     [Header("Configuración de Escenas")]
     public string nombreEscenaMenu = "EscenaMenu";
 
-    private GameManagerCollectibles gameManagerCollectibles;
+    private bool victoriaActivada = false;
 
     void Start()
     {
-        // Buscamos el gestor de coleccionables si existe
-        gameManagerCollectibles = FindObjectOfType<GameManagerCollectibles>();
-
-        // Aseguramos que el panel de victoria esté oculto al empezar
         if (panelVictoria != null)
         {
             panelVictoria.SetActive(false);
         }
-
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // 1. Detectar si es el jugador
-        if (other.CompareTag("Player"))
+        // Detectar si es el jugador y evitar que se repita
+        if (other.CompareTag("Player") && !victoriaActivada)
         {
-            // 2. Ejecutar la lógica de victoria
-            ActivarVictoria();
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            victoriaActivada = true;
 
+            // --- PASO CLAVE ---
+            // Buscamos cualquier componente que pueda estar bloqueando el ratón y lo desactivamos
+            // Si usas el Starter Assets o un FPS Controller común, esto suele ser necesario:
+            var controller = other.GetComponent<CharacterController>();
+            if (controller != null)
+            {
+                // Si tienes un script específico de cámara o movimiento, desactívalo aquí:
+                // other.GetComponent<TuScriptDeMovimiento>().enabled = false;
+            }
 
-            // Detener el tiempo del juego
-            Time.timeScale = 0f;
+            StartCoroutine(SecuenciaVictoria());
         }
     }
 
-    private void ActivarVictoria()
+    private IEnumerator SecuenciaVictoria()
     {
-            Debug.Log("¡Victoria! Mostrando panel.");
+        Debug.Log("Iniciando secuencia de victoria...");
 
+        // 1. Mostrar el panel
+        if (panelVictoria != null) panelVictoria.SetActive(true);
 
-        // Hacer visible el cursor y liberarlo
+        // 2. Liberar el cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        // 3. ESPERAR UN FRAME (Esto soluciona lo de la 'segunda pasada')
+        // Permite que Unity procese la desactivación de otros scripts antes de pausar
+        yield return null;
 
-        // Detener el tiempo del juego
+        // 4. Pausar el tiempo
         Time.timeScale = 0f;
 
-
-        // Mostrar el cartel de victoria
-        panelVictoria.SetActive(true);
+        // 5. Reforzar visibilidad (por si el motor lo ocultó al pausar)
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
-
-    // --- MÉTODOS PARA LOS BOTONES DEL PANEL DE VICTORIA ---
 
     public void VolverAlMenu()
     {
