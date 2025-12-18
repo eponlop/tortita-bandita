@@ -104,6 +104,8 @@ public class PlayerController : MonoBehaviour
         controller.center = new Vector3(0, originalCenterY, 0);
         controller.radius = originalRadius;
 
+        Time.timeScale = 1f;
+
 
         // 4. SINCRONIZACIÓN Y REINICIO DEL ANIMATOR
         if (animator != null)

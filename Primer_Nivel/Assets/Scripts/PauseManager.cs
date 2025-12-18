@@ -15,7 +15,7 @@ public class PauseManager : MonoBehaviour
     void Start()
     {
         HideAndLockCursor();
-
+        Time.timeScale = 1f;
         if (pauseMenuUI != null)
             pauseMenuUI.SetActive(false);
     }

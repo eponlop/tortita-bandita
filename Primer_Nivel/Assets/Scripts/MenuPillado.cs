@@ -16,7 +16,6 @@ public class MenuPillado : MonoBehaviour
     void Start()
     {
         // Aseguramos que el cursor esté oculto y bloqueado al inicio del juego normal.
-        HideAndLockCursor();
 
         if (indicadorPanel != null)
         {
@@ -24,14 +23,6 @@ public class MenuPillado : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-    }
-
-    // Función auxiliar para ocultar/bloquear el cursor (estado normal de juego)
-    private void HideAndLockCursor()
-    {
-        // Si no queremos que el jugador vea el cursor en el juego normal:
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void OnEnemyCaughtPlayer()
@@ -45,6 +36,7 @@ public class MenuPillado : MonoBehaviour
             indicadorPanel.SetActive(true);
 
             // 2. Muestra y libera el cursor para que el jugador pueda interactuar con el menú
+            Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
         else
@@ -61,7 +53,6 @@ public class MenuPillado : MonoBehaviour
         // Restaurar tiempo (importante para que la próxima escena cargue)
         Time.timeScale = 1f;
         // Ocultar/Bloquear cursor antes de cambiar de escena (opcional, pero buena práctica)
-        HideAndLockCursor();
         SceneManager.LoadScene(nombreEscenaMenuPrincipal);
     }
 
@@ -71,8 +62,7 @@ public class MenuPillado : MonoBehaviour
         // Restaurar tiempo
         Time.timeScale = 1f;
         // Ocultar/Bloquear cursor para volver al juego normal (lo haría Start() si recargas)
-            HideAndLockCursor();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     // Update is called once per frame
